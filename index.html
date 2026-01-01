@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aksara Picture - Foto Wisuda Malang Surabaya Kediri</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts: Playfair Display (Serif) & Manrope (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- SYSTEM VARIABLES --- */
+        :root {
+            --bg-color: #030303;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.75); /* Sedikit lebih terang untuk Manrope */
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --accent-color: #E3CFA3; /* Champagne Gold */
+            
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.1);
+            --glass-blur: 24px;
+            
+            /* TYPOGRAPHY CONFIG */
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Manrope', sans-serif;
+            
+            /* Lebih smooth easing untuk transisi baru */
+            --easing: cubic-bezier(0.34, 1.56, 0.64, 1); 
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans); /* Default clean sans */
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            height: 100dvh;
+            overflow: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.01em; /* Manrope looks tighter and better with slight negative spacing */
+        }
+
+        /* =========================================
+           PRELOADER
+           ========================================= */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.2s var(--easing), visibility 1.2s;
+        }
+        
+        .preloader-logo-box {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 30px;
+            animation: fadeUp 1s ease-out;
+            box-shadow: 0 0 30px rgba(227, 207, 163, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .preloader-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .loading-line-wrapper { width: 120px; height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; }
+        .loading-line {
+            width: 100%; height: 100%; background: var(--text-primary);
+            transform: translateX(-100%); animation: loadAnim 1.5s var(--easing) forwards;
+        }
+        @keyframes loadAnim { 0% { transform: translateX(-100%); } 100% { transform: translateX(0); } }
+        body.loaded #preloader { opacity: 0; visibility: hidden; }
+
+        /* =========================================
+           BACKGROUND SLIDER
+           ========================================= */
+        .bg-slider { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
+        .slide-item {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0; transition: opacity 2.5s ease-in-out, transform 12s linear;
+            transform: scale(1.08); background-image: var(--bg-desktop);
+        }
+        @media (max-width: 768px) { .slide-item { background-image: var(--bg-mobile); background-position: center top; } }
+        .slide-item.active { opacity: 1; transform: scale(1); }
+        
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); 
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.95) 100%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* =========================================
+           PROMO POPUP (1:1 RATIO UPDATE)
+           ========================================= */
+        #promo-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px);
+            z-index: 5000; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.6s var(--easing);
+        }
+        #promo-popup.show { opacity: 1; visibility: visible; }
+        .popup-glass {
+            background: rgba(20, 20, 20, 0.8); border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6); backdrop-filter: blur(40px);
+            width: 85%; max-width: 340px;
+            border-radius: 24px; overflow: hidden;
+            transform: scale(0.9) translateY(20px); transition: all 0.6s var(--easing); position: relative;
+        }
+        #promo-popup.show .popup-glass { transform: scale(1) translateY(0); }
+        
+        .popup-visual {
+            width: 100%; 
+            aspect-ratio: 1 / 1;
+            height: auto;
+            position: relative;
+            background-image: url('end year.jpg');
+            background-size: cover; background-position: center;
+        }
+        
+        .popup-tag {
+            position: absolute; top: 16px; right: 16px;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 6px 14px;
+            border-radius: 100px; font-size: 0.6rem; font-weight: 600; 
+            letter-spacing: 0.08em; text-transform: uppercase;
+            font-family: var(--font-sans); /* Keep tags clean */
+        }
+        .popup-body { padding: 30px 24px; text-align: center; }
+        
+        .popup-h { 
+            font-family: var(--font-serif); /* Editorial Serif */
+            font-size: 1.5rem; 
+            font-weight: 500; 
+            margin-bottom: 8px; 
+            color: #fff; 
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+        
+        .popup-p { 
+            font-size: 0.85rem; color: var(--text-secondary); 
+            margin-bottom: 24px; line-height: 1.7; font-weight: 300; 
+        }
+        
+        .btn-text-only {
+            background: transparent; border: none; color: #fff; font-size: 0.75rem;
+            letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+            padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s; font-family: var(--font-sans); font-weight: 600;
+        }
+        .btn-text-only:hover {
+            color: var(--accent-color); border-bottom-color: var(--accent-color); letter-spacing: 0.2em;
+        }
+        
+        .close-icon {
+            position: absolute; top: 16px; left: 16px; color: #fff;
+            background: rgba(0,0,0,0.3); width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;
+            backdrop-filter: blur(4px); transition: all 0.3s; z-index: 10;
+        }
+        .close-icon:hover { background: rgba(255,255,255,0.5); transform: rotate(90deg); color: #000; }
+
+        /* =========================================
+           LAYOUT & SUPER COOL TRANSITIONS
+           ========================================= */
+        .main-container {
+            width: 100%; height: 100%; 
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        
+        .view-section {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; max-width: 420px; 
+            text-align: center;
+            opacity: 0; 
+            visibility: hidden;
+            pointer-events: none;
+            transition: none;
+            padding-bottom: 100px;
+            transform-origin: center center;
+        }
+
+        .view-section.active {
+            opacity: 1; 
+            visibility: visible; 
+            pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+            filter: blur(0);
+        }
+
+        /* NEW ANIMATION: Hyper-Cool Depth Transition */
+        .view-section.entering {
+            animation: hyperCoolIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .view-section.exiting {
+            pointer-events: none;
+            animation: hyperCoolOut 0.7s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+        }
+
+        @keyframes hyperCoolIn {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(1.15) translateY(30px);
+                filter: blur(15px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1) translateY(0); 
+                filter: blur(0); 
+            }
+        }
+
+        @keyframes hyperCoolOut {
+            0% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1); 
+                filter: blur(0); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.9) translateY(-30px);
+                filter: blur(20px); 
+            }
+        }
+
+        .brand-header { margin-bottom: 3.5rem; display: flex; flex-direction: column; align-items: center; }
+        
+        .logo-box {
+            width: 100px; height: 100px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 25px; backdrop-filter: blur(10px);
+            overflow: hidden; 
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .logo-img { width: 100%; height: 100%; object-fit: cover; opacity: 1; }
+        
+        /* LUXURY EDITORIAL TYPOGRAPHY */
+        .agency-name { 
+            font-family: var(--font-serif);
+            font-weight: 400; 
+            font-style: italic; /* Signature Editorial look */
+            font-size: 3.5rem; 
+            letter-spacing: -0.03em; 
+            line-height: 1; 
+            margin-bottom: 12px; 
+            color: #fff; 
+        }
+        
+        .agency-tagline { 
+            font-family: var(--font-sans);
+            font-size: 0.7rem; 
+            letter-spacing: 0.25em; 
+            text-transform: uppercase; 
+            color: var(--text-secondary); 
+            font-weight: 500; 
+        }
+
+        /* =========================================
+           GLASS BUTTONS (MENU)
+           ========================================= */
+        .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
+        
+        .glass-btn {
+            position: relative; width: 100%; max-width: 320px;
+            background: var(--glass-surface); border: 1px solid var(--glass-border);
+            padding: 20px 24px; /* Sedikit lebih tinggi untuk Manrope */
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        }
+        
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 20px rgba(227, 207, 163, 0.1);
+        }
+        
+        .btn-label { 
+            font-family: var(--font-sans);
+            font-size: 0.9rem; 
+            color: #fff; 
+            font-weight: 500; 
+            letter-spacing: 0.02em; 
+        }
+        
+        .btn-icon-right { color: var(--text-muted); font-size: 0.8rem; transition: transform 0.3s; }
+        
+        .glass-btn:hover .btn-icon-right { transform: translateX(5px); color: var(--accent-color); }
+
+        /* =========================================
+           GLASS CONTENT BOX
+           ========================================= */
+        .glass-card {
+            background: rgba(10, 10, 10, 0.6); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(30px); padding: 40px 30px; border-radius: 24px;
+            text-align: left; max-height: 80vh; overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .glass-card::-webkit-scrollbar { display: none; }
+        
+        .section-label { 
+            font-family: var(--font-sans);
+            font-size: 0.65rem; 
+            color: var(--accent-color); 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            margin-bottom: 18px; 
+            display: block; 
+            font-weight: 600; 
+        }
+        
+        .text-body { 
+            font-family: var(--font-sans);
+            font-size: 0.95rem; 
+            line-height: 1.75; /* Improved readability for Manrope */
+            color: var(--text-secondary); 
+            font-weight: 300; 
+            margin-bottom: 25px; 
+        }
+        
+        .text-highlight { 
+            color: #fff; 
+            font-weight: 400; 
+            font-family: var(--font-serif); /* Serif Italic Highlight for Luxury feel */
+            font-style: italic;
+            font-size: 1.05em;
+        }
+        
+        /* Auto grid agar responsif di layar lebar */
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; }
+        .service-item { 
+            font-family: var(--font-sans);
+            font-size: 0.8rem; 
+            color: var(--text-secondary); 
+            display: flex; align-items: center; gap: 10px; 
+            letter-spacing: 0.02em;
+        }
+        .dot { width: 3px; height: 3px; background: var(--accent-color); border-radius: 50%; }
+
+        /* FORM */
+        .minimal-input {
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+            padding: 18px; border-radius: 12px; color: #fff; 
+            font-family: var(--font-sans);
+            font-size: 0.9rem; margin-bottom: 12px; transition: all 0.3s;
+        }
+        .minimal-input:focus { outline: none; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
+        .minimal-input::placeholder { color: var(--text-muted); font-weight: 300; }
+
+        .action-btn {
+            background: #fff; color: #000; border: none; padding: 18px;
+            width: 100%; border-radius: 12px; font-weight: 600; font-size: 0.85rem;
+            letter-spacing: 0.05em; cursor: pointer; margin-top: 10px;
+            transition: all 0.3s ease;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 15px rgba(255,255,255,0.3);
+            background: #fff;
+        }
+
+        /* =========================================
+           FLOATING DOCK
+           ========================================= */
+        .dock-wrapper { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 100; }
+        .glass-dock {
+            background: rgba(20, 20, 20, 0.4); border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px); padding: 6px; border-radius: 100px;
+            display: flex; gap: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .dock-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; cursor: pointer; transition: all 0.3s var(--easing); position: relative;
+        }
+        .dock-btn:hover {
+            color: #fff; background: rgba(255,255,255,0.15);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .dock-btn.active { color: #fff; background: rgba(255,255,255,0.1); }
+        .dock-btn.active::after {
+            content: ''; position: absolute; bottom: 4px; width: 3px; height: 3px;
+            background: var(--accent-color); border-radius: 50%;
+        }
+
+        .copyright {
+            position: fixed; bottom: 10px; width: 100%; text-align: center;
+            font-size: 0.6rem; color: var(--text-muted); z-index: 5; pointer-events: none;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            font-family: var(--font-sans);
+        }
+
+        #toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: rgba(255,255,255,0.9); color: #000; padding: 12px 28px;
+            font-weight: 600; font-size: 0.8rem; z-index: 5001;
+            transition: transform 0.5s var(--easing); border-radius: 100px; opacity: 0;
+            font-family: var(--font-sans);
+        }
+        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        
+        /* Desktop & Tablet (Lebar) */
+        @media (min-width: 768px) {
+            /* Membuat About & Contact lebih lebar seperti majalah editorial */
+            #about-view, #contact-view {
+                max-width: 700px;
+            }
+            
+            #about-view .glass-card, #contact-view .glass-card {
+                padding: 50px; /* Padding lebih lega di desktop */
+            }
+            
+            /* Home tetap ramping untuk estetika menu */
+            #home-view { max-width: 420px; }
+        }
+        
+        /* Mobile (Kecil) */
+        @media (max-width: 767px) {
+            .agency-name { font-size: 2.8rem; } 
+            .glass-card { padding: 30px 24px; }
+            .brand-header { margin-bottom: 2.5rem; }
+            .bg-slider { opacity: 0.8; }
+            
+            /* Pastikan aman di layar sangat kecil */
+            .view-section { width: 92%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-logo-box">
+            <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="preloader-img">
+        </div>
+        <div class="loading-line-wrapper">
+            <div class="loading-line"></div>
+        </div>
+    </div>
+
+    <!-- PROMO POPUP -->
+    <div id="promo-popup">
+        <div class="popup-glass">
+            <button class="close-icon" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="popup-visual">
+                <div class="popup-tag">BOOKING 2026</div>
+            </div>
+            <div class="popup-body">
+                <h3 class="popup-h">New Season Open</h3>
+                <p class="popup-p">Exclusive slots for commercial campaigns are now available. Let's craft your visual identity.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND SLIDER -->
+    <div class="bg-slider">
+        <div class="slide-item active" 
+             style="--bg-desktop: url('4.jpg'); 
+                    --bg-mobile: url('1.jpg');">
+        </div>
+        <div class="slide-item" 
+             style="--bg-desktop: url('5.jpg'); 
+                    --bg-mobile: url('2.jpg');">
+        </div>
+        <div class="slide-item" 
+             style="--bg-desktop: url('6.jpg'); 
+                    --bg-mobile: url('3.jpg');">
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+    <div id="toast">Link Copied</div>
+
+    <div class="main-container">
+        
+        <!-- HOME VIEW -->
+        <div id="home-view" class="view-section active">
+            <div class="brand-header">
+                <div class="logo-box">
+                    <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="logo-img">
+                </div>
+                
+                <h1 class="agency-name">Aksara Picture</h1>
+                <p class="agency-tagline">Preserving Your Moments ✨</p>
+            </div>
+
+            <div class="menu-list">
+                <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" class="glass-btn">
+                    <span class="btn-label">Our Website</span>
+                    <i class="fa-brands fa-chrome btn-icon-right"></i>
+                </a>
+                <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" class="glass-btn">
+                    <span class="btn-label">Info Pricelist</span>
+                    <i class="fa-brands fa-whatsapp btn-icon-right"></i>
+                </a>
+                <a href="https://www.instagram.com/aksarapicture.mlg" class="glass-btn">
+                    <span class="btn-label">Instagram</span>
+                    <i class="fa-brands fa-instagram btn-icon-right"></i>
+                </a>
+
+                <a href="https://www.tiktok.com/@aksarapicturemlg" class="glass-btn">
+                    <span class="btn-label">Tiktok</span>
+                    <i class="fa-brands fa-tiktok btn-icon-right"></i>
+                </a>
+                <div onclick="sharePage()" class="glass-btn">
+                    <span class="btn-label">Share Profile</span>
+                    <i class="fa-solid fa-arrow-up-from-bracket btn-icon-right"></i>
+                </div>
+                                <p class="agency-tagline">#rollingwithaksara</p>
+            </div>
+        </div>
+
+        <!-- ABOUT VIEW -->
+        <div id="about-view" class="view-section">
+            <div class="glass-card">
+                <span class="section-label">The Studio</span>
+                <p class="text-body">
+                    <span class="text-highlight">Aksara Picture</span> adalah studio foto wisuda yang berbasis di Malang, hadir untuk mengabadikan momen kelulusanmu dengan hasil foto yang elegan, natural, dan penuh cerita. Kami percaya bahwa wisuda bukan sekadar seremoni, tapi titik penting perjalanan hidup yang layak dikenang dengan visual terbaik.
+                </p>
+                <p class="text-body">
+                    Dengan pengalaman menangani ratusan sesi foto wisuda, Aksara Picture melayani pemotretan indoor maupun outdoor, baik secara personal, bersama keluarga, sahabat, maupun pasangan. Gaya pemotretan kami menyesuaikan karakter klien. mulai dari formal klasik, soft aesthetic, hingga candid yang hangat dan berkesan.
+                </p>
+
+                <p class="text-body">
+                    Tak hanya di Malang, kami juga siap rolling ke Surabaya dan Kediri, menemani setiap langkah wisudawan tanpa ribet. Didukung fotografer profesional, peralatan berkualitas, serta proses editing yang rapi dan natural, kami berkomitmen memberikan hasil foto yang timeless dan layak dibagikan di hari spesialmu.
+                
+                <span class="section-label" style="margin-top: 30px;">Specialties</span>
+                <div class="service-grid">
+                    <div class="service-item"><div class="dot"></div>Graduation</div>
+                    <div class="service-item"><div class="dot"></div>Wedding</div>
+                    <div class="service-item"><div class="dot"></div>Gathering</div>
+                    <div class="service-item"><div class="dot"></div>Travel</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT VIEW -->
+        <div id="contact-view" class="view-section">
+            <div class="glass-card">
+                <span class="section-label">Inquiries</span>
+                <p class="text-body" style="margin-bottom: 20px;">
+                    Currently accepting commissions for the 2026 season. <br>Please detail your project scope below.
+                </p>
+
+                <form onsubmit="handleContact(event)">
+                    <input type="text" class="minimal-input" placeholder="Nama" required>
+                    <input type="email" class="minimal-input" placeholder="Email" required>
+                    <input type="text" class="minimal-input" placeholder="Project Brief" required>
+                    <button type="submit" class="action-btn">Request Schedule</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="copyright">© 2026 Aksarapicture.mlg</div>
+
+    <!-- FLOATING DOCK -->
+    <div class="dock-wrapper">
+        <div class="glass-dock">
+            <button class="dock-btn active" onclick="switchView('home-view')" id="nav-home">
+                <i class="fa-solid fa-house"></i>
+            </button>
+            <button class="dock-btn" onclick="switchView('about-view')" id="nav-about">
+                <i class="fa-solid fa-user"></i>
+            </button>
+            <button class="dock-btn" onclick="switchView('contact-view')" id="nav-contact">
+                <i class="fa-solid fa-envelope"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+                setTimeout(() => document.getElementById('promo-popup').classList.add('show'), 1000);
+            }, 1500);
+        });
+
+        function closePopup() { document.getElementById('promo-popup').classList.remove('show'); }
+
+        const slides = document.querySelectorAll('.slide-item');
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        function switchView(viewId) {
+            const currentView = document.querySelector('.view-section.active');
+            const nextView = document.getElementById(viewId);
+            
+            if (currentView === nextView) return;
+
+            document.querySelectorAll('.dock-btn').forEach(el => el.classList.remove('active'));
+            if(viewId === 'home-view') document.getElementById('nav-home').classList.add('active');
+            if(viewId === 'about-view') document.getElementById('nav-about').classList.add('active');
+            if(viewId === 'contact-view') document.getElementById('nav-contact').classList.add('active');
+
+            if (currentView) {
+                currentView.classList.remove('active', 'entering');
+                currentView.classList.add('exiting');
+                setTimeout(() => {
+                    currentView.classList.remove('exiting');
+                }, 700);
+            }
+
+            if (nextView) {
+                nextView.classList.add('active', 'entering');
+                setTimeout(() => {
+                    nextView.classList.remove('entering');
+                }, 800);
+            }
+        }
+
+        function sharePage() { navigator.clipboard.writeText(window.location.href); showToast("Link Copied"); }
+        function handleContact(e) { e.preventDefault(); showToast("Sent"); e.target.reset(); }
+        function showToast(msg) {
+            const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show");
+            setTimeout(() => t.classList.remove("show"), 2500);
+        }
+    </script>
+</body>
+</html>
