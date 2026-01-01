@@ -13,12 +13,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
+    
     <style>
         /* --- SYSTEM VARIABLES --- */
         :root {
             --bg-color: #030303;
             --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.75); /* Sedikit lebih terang untuk Manrope */
+            --text-secondary: rgba(255, 255, 255, 0.75);
             --text-muted: rgba(255, 255, 255, 0.5);
             --accent-color: #E3CFA3; /* Champagne Gold */
             
@@ -31,7 +32,6 @@
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Manrope', sans-serif;
             
-            /* Lebih smooth easing untuk transisi baru */
             --easing: cubic-bezier(0.34, 1.56, 0.64, 1); 
         }
 
@@ -39,15 +39,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: var(--font-sans); /* Default clean sans */
+            font-family: var(--font-sans);
             background-color: var(--bg-color);
             color: var(--text-primary);
             height: 100dvh;
             overflow: hidden;
             position: relative;
             -webkit-font-smoothing: antialiased;
-            letter-spacing: -0.01em; /* Manrope looks tighter and better with slight negative spacing */
+            letter-spacing: -0.01em;
         }
+
+
 
         /* =========================================
            PRELOADER
@@ -100,7 +102,231 @@
         }
 
         /* =========================================
-           PROMO POPUP (1:1 RATIO UPDATE)
+           LANGUAGE SWITCHER
+           ========================================= */
+        .lang-switch {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            padding: 4px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: #fff;
+        }
+
+        /* =========================================
+           AUDIO PLAYER WIDGET (FIXED POSITIONING)
+           ========================================= */
+        .audio-widget {
+            /* Container logic only - let click pass through */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        /* The circular floating button - STRICT BOTTOM RIGHT */
+        .audio-trigger {
+            pointer-events: auto; /* Enable clicks */
+            position: fixed;
+            top: auto !important;
+            left: auto !important;
+            bottom: 30px !important;
+            right: 30px !important; 
+            margin: 0 !important;
+            transform: none; /* Prevent transform offsets */
+            
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.4s var(--easing); /* Only animate transform */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 2001;
+        }
+        
+        .audio-trigger:hover { transform: scale(1.05); border-color: var(--accent-color); }
+        
+        /* Rotating Vinyl Icon */
+        .trigger-icon {
+            font-size: 1.2rem;
+            color: #fff;
+            z-index: 2;
+        }
+        
+        .vinyl-spin {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: url('https://www.transparenttextures.com/patterns/dark-matter.png'), radial-gradient(circle, #333 10%, #111 90%);
+            opacity: 0.8;
+            animation: spin 4s linear infinite;
+            display: none; 
+        }
+        .audio-widget.playing .vinyl-spin { display: block; }
+        .audio-widget.playing .trigger-icon { display: none; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* The Expanded Player Card - STRICT BOTTOM LEFT */
+        .audio-card {
+            pointer-events: auto; /* Enable clicks */
+            position: fixed;
+            top: auto !important;
+            right: auto !important;
+            bottom: 30px !important;
+            left: 30px !important;
+            margin: 0 !important;
+            
+            width: 280px;
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            transform-origin: bottom left;
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--easing);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 2000;
+        }
+
+        .audio-widget.open .audio-card {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .track-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .track-art {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            background-color: #333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .track-details { flex: 1; overflow: hidden; }
+        .track-name { 
+            font-family: var(--font-sans); font-size: 0.9rem; font-weight: 700; color: #fff; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+        }
+        .track-artist { 
+            font-family: var(--font-serif); font-size: 0.75rem; color: var(--accent-color); font-style: italic; 
+        }
+
+        /* Custom Progress Bar */
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px; height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .progress-bar:hover::-webkit-slider-thumb { transform: scale(1.3); }
+
+        .time-display { font-size: 0.65rem; color: var(--text-muted); width: 30px; text-align: center; }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .control-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .control-btn:hover { color: var(--accent-color); }
+        .play-btn { 
+            width: 36px; height: 36px; 
+            border-radius: 50%; 
+            background: #fff; 
+            color: #000; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+            padding-left: 2px; /* optical adjustment */
+        }
+        .play-btn:hover { transform: scale(1.1); color: #000; }
+
+        @media (max-width: 767px) {
+            /* Mobile adjustment to stay above the dock */
+            .audio-trigger { bottom: 90px !important; right: 20px !important; } 
+            .audio-card { bottom: 90px !important; left: 20px !important; width: 260px; }
+        }
+
+        /* =========================================
+           PROMO POPUP
            ========================================= */
         #promo-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -133,12 +359,12 @@
             border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 6px 14px;
             border-radius: 100px; font-size: 0.6rem; font-weight: 600; 
             letter-spacing: 0.08em; text-transform: uppercase;
-            font-family: var(--font-sans); /* Keep tags clean */
+            font-family: var(--font-sans);
         }
         .popup-body { padding: 30px 24px; text-align: center; }
         
         .popup-h { 
-            font-family: var(--font-serif); /* Editorial Serif */
+            font-family: var(--font-serif);
             font-size: 1.5rem; 
             font-weight: 500; 
             margin-bottom: 8px; 
@@ -152,16 +378,6 @@
             margin-bottom: 24px; line-height: 1.7; font-weight: 300; 
         }
         
-        .btn-text-only {
-            background: transparent; border: none; color: #fff; font-size: 0.75rem;
-            letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
-            padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.3s; font-family: var(--font-sans); font-weight: 600;
-        }
-        .btn-text-only:hover {
-            color: var(--accent-color); border-bottom-color: var(--accent-color); letter-spacing: 0.2em;
-        }
-        
         .close-icon {
             position: absolute; top: 16px; left: 16px; color: #fff;
             background: rgba(0,0,0,0.3); width: 32px; height: 32px; border-radius: 50%;
@@ -171,7 +387,7 @@
         .close-icon:hover { background: rgba(255,255,255,0.5); transform: rotate(90deg); color: #000; }
 
         /* =========================================
-           LAYOUT & SUPER COOL TRANSITIONS
+           LAYOUT & TRANSITIONS
            ========================================= */
         .main-container {
             width: 100%; height: 100%; 
@@ -196,47 +412,21 @@
         }
 
         .view-section.active {
-            opacity: 1; 
-            visibility: visible; 
-            pointer-events: all;
-            transform: translate(-50%, -50%) scale(1);
-            filter: blur(0);
+            opacity: 1; visibility: visible; pointer-events: all;
+            transform: translate(-50%, -50%) scale(1); filter: blur(0);
         }
 
-        /* NEW ANIMATION: Hyper-Cool Depth Transition */
-        .view-section.entering {
-            animation: hyperCoolIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .view-section.exiting {
-            pointer-events: none;
-            animation: hyperCoolOut 0.7s cubic-bezier(0.7, 0, 0.84, 0) forwards;
-        }
+        .view-section.entering { animation: hyperCoolIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .view-section.exiting { pointer-events: none; animation: hyperCoolOut 0.7s cubic-bezier(0.7, 0, 0.84, 0) forwards; }
 
         @keyframes hyperCoolIn {
-            0% { 
-                opacity: 0; 
-                transform: translate(-50%, -50%) scale(1.15) translateY(30px);
-                filter: blur(15px); 
-            }
-            100% { 
-                opacity: 1; 
-                transform: translate(-50%, -50%) scale(1) translateY(0); 
-                filter: blur(0); 
-            }
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(1.15) translateY(30px); filter: blur(15px); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1) translateY(0); filter: blur(0); }
         }
 
         @keyframes hyperCoolOut {
-            0% { 
-                opacity: 1; 
-                transform: translate(-50%, -50%) scale(1); 
-                filter: blur(0); 
-            }
-            100% { 
-                opacity: 0; 
-                transform: translate(-50%, -50%) scale(0.9) translateY(-30px);
-                filter: blur(20px); 
-            }
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9) translateY(-30px); filter: blur(20px); }
         }
 
         .brand-header { margin-bottom: 3.5rem; display: flex; flex-direction: column; align-items: center; }
@@ -253,25 +443,16 @@
         
         .logo-img { width: 100%; height: 100%; object-fit: cover; opacity: 1; }
         
-        /* LUXURY EDITORIAL TYPOGRAPHY */
         .agency-name { 
             font-family: var(--font-serif);
-            font-weight: 400; 
-            font-style: italic; /* Signature Editorial look */
-            font-size: 3.5rem; 
-            letter-spacing: -0.03em; 
-            line-height: 1; 
-            margin-bottom: 12px; 
-            color: #fff; 
+            font-weight: 300; font-style: italic; font-size: 3rem; 
+            letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; color: #fff; 
         }
         
         .agency-tagline { 
             font-family: var(--font-sans);
-            font-size: 0.7rem; 
-            letter-spacing: 0.25em; 
-            text-transform: uppercase; 
-            color: var(--text-secondary); 
-            font-weight: 500; 
+            font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; 
+            color: var(--text-secondary); font-weight: 500; 
         }
 
         /* =========================================
@@ -282,7 +463,7 @@
         .glass-btn {
             position: relative; width: 100%; max-width: 320px;
             background: var(--glass-surface); border: 1px solid var(--glass-border);
-            padding: 20px 24px; /* Sedikit lebih tinggi untuk Manrope */
+            padding: 20px 24px;
             border-radius: 16px;
             display: flex; align-items: center; justify-content: space-between;
             text-decoration: none; cursor: pointer;
@@ -299,14 +480,10 @@
         
         .btn-label { 
             font-family: var(--font-sans);
-            font-size: 0.9rem; 
-            color: #fff; 
-            font-weight: 500; 
-            letter-spacing: 0.02em; 
+            font-size: 0.9rem; color: #fff; font-weight: 500; letter-spacing: 0.02em; 
         }
         
         .btn-icon-right { color: var(--text-muted); font-size: 0.8rem; transition: transform 0.3s; }
-        
         .glass-btn:hover .btn-icon-right { transform: translateX(5px); color: var(--accent-color); }
 
         /* =========================================
@@ -322,40 +499,26 @@
         
         .section-label { 
             font-family: var(--font-sans);
-            font-size: 0.65rem; 
-            color: var(--accent-color); 
-            letter-spacing: 0.2em; 
-            text-transform: uppercase; 
-            margin-bottom: 18px; 
-            display: block; 
-            font-weight: 600; 
+            font-size: 0.65rem; color: var(--accent-color); letter-spacing: 0.2em; 
+            text-transform: uppercase; margin-bottom: 18px; display: block; font-weight: 600; 
         }
         
         .text-body { 
             font-family: var(--font-sans);
-            font-size: 0.95rem; 
-            line-height: 1.75; /* Improved readability for Manrope */
-            color: var(--text-secondary); 
-            font-weight: 300; 
-            margin-bottom: 25px; 
+            font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); 
+            font-weight: 300; margin-bottom: 25px; 
         }
         
         .text-highlight { 
-            color: #fff; 
-            font-weight: 400; 
-            font-family: var(--font-serif); /* Serif Italic Highlight for Luxury feel */
-            font-style: italic;
-            font-size: 1.05em;
+            color: #fff; font-weight: 400; font-family: var(--font-serif); 
+            font-style: italic; font-size: 1.05em;
         }
         
-        /* Auto grid agar responsif di layar lebar */
         .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; }
         .service-item { 
             font-family: var(--font-sans);
-            font-size: 0.8rem; 
-            color: var(--text-secondary); 
-            display: flex; align-items: center; gap: 10px; 
-            letter-spacing: 0.02em;
+            font-size: 0.8rem; color: var(--text-secondary); 
+            display: flex; align-items: center; gap: 10px; letter-spacing: 0.02em;
         }
         .dot { width: 3px; height: 3px; background: var(--accent-color); border-radius: 50%; }
 
@@ -426,31 +589,19 @@
         #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         
         /* --- RESPONSIVE MEDIA QUERIES --- */
-        
-        /* Desktop & Tablet (Lebar) */
         @media (min-width: 768px) {
-            /* Membuat About & Contact lebih lebar seperti majalah editorial */
-            #about-view, #contact-view {
-                max-width: 700px;
-            }
-            
-            #about-view .glass-card, #contact-view .glass-card {
-                padding: 50px; /* Padding lebih lega di desktop */
-            }
-            
-            /* Home tetap ramping untuk estetika menu */
+            #about-view, #contact-view { max-width: 700px; }
+            #about-view .glass-card, #contact-view .glass-card { padding: 50px; }
             #home-view { max-width: 420px; }
         }
         
-        /* Mobile (Kecil) */
         @media (max-width: 767px) {
-            .agency-name { font-size: 2.8rem; } 
+            .agency-name { font-size: 2.5rem; } 
             .glass-card { padding: 30px 24px; }
             .brand-header { margin-bottom: 2.5rem; }
             .bg-slider { opacity: 0.8; }
-            
-            /* Pastikan aman di layar sangat kecil */
             .view-section { width: 92%; }
+            .lang-switch { top: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -459,6 +610,7 @@
     <!-- PRELOADER -->
     <div id="preloader">
         <div class="preloader-logo-box">
+            <!-- RESTORED: Original Image -->
             <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="preloader-img">
         </div>
         <div class="loading-line-wrapper">
@@ -466,22 +618,29 @@
         </div>
     </div>
 
+    <!-- LANGUAGE SWITCHER -->
+    <div class="lang-switch">
+        <button class="lang-btn" onclick="setLanguage('id')" id="btn-id">ID</button>
+        <button class="lang-btn active" onclick="setLanguage('en')" id="btn-en">EN</button>
+    </div>
+
     <!-- PROMO POPUP -->
     <div id="promo-popup">
         <div class="popup-glass">
             <button class="close-icon" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
             <div class="popup-visual">
-                <div class="popup-tag">BOOKING 2026</div>
+                <div class="popup-tag" data-i18n="popup-tag">BOOKING 2026</div>
             </div>
             <div class="popup-body">
-                <h3 class="popup-h">New Season Open</h3>
-                <p class="popup-p">Exclusive slots for commercial campaigns are now available. Let's craft your visual identity.</p>
+                <h3 class="popup-h" data-i18n="popup-title">New Season Open</h3>
+                <p class="popup-p" data-i18n="popup-desc">Exclusive slots for commercial campaigns are now available. Let's craft your visual identity.</p>
             </div>
         </div>
     </div>
 
     <!-- BACKGROUND SLIDER -->
     <div class="bg-slider">
+        <!-- RESTORED: Original Images -->
         <div class="slide-item active" 
              style="--bg-desktop: url('4.jpg'); 
                     --bg-mobile: url('1.jpg');">
@@ -497,7 +656,7 @@
     </div>
 
     <div class="overlay"></div>
-    <div id="toast">Link Copied</div>
+    <div id="toast" data-i18n="toast-copy">Link Copied</div>
 
     <div class="main-container">
         
@@ -505,20 +664,21 @@
         <div id="home-view" class="view-section active">
             <div class="brand-header">
                 <div class="logo-box">
+                    <!-- RESTORED: Original Image -->
                     <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="logo-img">
                 </div>
                 
                 <h1 class="agency-name">Aksara Picture</h1>
-                <p class="agency-tagline">Preserving Your Moments ✨</p>
+                <p class="agency-tagline" data-i18n="tagline">Preserving Your Moments ✨</p>
             </div>
 
             <div class="menu-list">
                 <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" class="glass-btn">
-                    <span class="btn-label">Our Website</span>
+                    <span class="btn-label" data-i18n="btn-website">Our Website</span>
                     <i class="fa-brands fa-chrome btn-icon-right"></i>
                 </a>
                 <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" class="glass-btn">
-                    <span class="btn-label">Info Pricelist</span>
+                    <span class="btn-label" data-i18n="btn-price">Info Pricelist</span>
                     <i class="fa-brands fa-whatsapp btn-icon-right"></i>
                 </a>
                 <a href="https://www.instagram.com/aksarapicture.mlg" class="glass-btn">
@@ -531,28 +691,29 @@
                     <i class="fa-brands fa-tiktok btn-icon-right"></i>
                 </a>
                 <div onclick="sharePage()" class="glass-btn">
-                    <span class="btn-label">Share Profile</span>
+                    <span class="btn-label" data-i18n="btn-share">Share Profile</span>
                     <i class="fa-solid fa-arrow-up-from-bracket btn-icon-right"></i>
                 </div>
-                                <p class="agency-tagline">#rollingwithaksara</p>
+                 <p class="agency-tagline">#rollingwithaksara</p>
             </div>
+            
         </div>
 
         <!-- ABOUT VIEW -->
         <div id="about-view" class="view-section">
             <div class="glass-card">
-                <span class="section-label">The Studio</span>
-                <p class="text-body">
-                    <span class="text-highlight">Aksara Picture</span> adalah studio foto wisuda yang berbasis di Malang, hadir untuk mengabadikan momen kelulusanmu dengan hasil foto yang elegan, natural, dan penuh cerita. Kami percaya bahwa wisuda bukan sekadar seremoni, tapi titik penting perjalanan hidup yang layak dikenang dengan visual terbaik.
+                <span class="section-label" data-i18n="about-label">The Studio</span>
+                <p class="text-body" data-i18n="about-text-1">
+                    <span class="text-highlight">Aksara Picture</span> is a graduation photography studio based in Malang, present to capture your graduation moments with elegant, natural, and story-filled results. We believe that graduation is not just a ceremony, but an important milestone in life worth remembering with the best visuals.
                 </p>
-                <p class="text-body">
-                    Dengan pengalaman menangani ratusan sesi foto wisuda, Aksara Picture melayani pemotretan indoor maupun outdoor, baik secara personal, bersama keluarga, sahabat, maupun pasangan. Gaya pemotretan kami menyesuaikan karakter klien. mulai dari formal klasik, soft aesthetic, hingga candid yang hangat dan berkesan.
+                <p class="text-body" data-i18n="about-text-2">
+                    With experience handling hundreds of graduation photo sessions, Aksara Picture serves both indoor and outdoor shoots, whether personal, with family, friends, or partners. Our photography style adapts to the client's character, ranging from classic formal, soft aesthetic, to warm and memorable candids.
                 </p>
 
                 <p class="text-body">
-                    Tak hanya di Malang, kami juga siap rolling ke Surabaya dan Kediri, menemani setiap langkah wisudawan tanpa ribet. Didukung fotografer profesional, peralatan berkualitas, serta proses editing yang rapi dan natural, kami berkomitmen memberikan hasil foto yang timeless dan layak dibagikan di hari spesialmu.
+                    <span data-i18n="about-text-3">Not only in Malang, we are also ready to roll to Surabaya and Kediri, accompanying every graduate's step without hassle. Supported by professional photographers, quality equipment, and neat natural editing processes, we are committed to providing timeless photo results worthy of sharing on your special day.</span>
                 
-                <span class="section-label" style="margin-top: 30px;">Specialties</span>
+                <span class="section-label" style="margin-top: 30px;" data-i18n="service-label">Specialties</span>
                 <div class="service-grid">
                     <div class="service-item"><div class="dot"></div>Graduation</div>
                     <div class="service-item"><div class="dot"></div>Wedding</div>
@@ -565,16 +726,16 @@
         <!-- CONTACT VIEW -->
         <div id="contact-view" class="view-section">
             <div class="glass-card">
-                <span class="section-label">Inquiries</span>
-                <p class="text-body" style="margin-bottom: 20px;">
+                <span class="section-label" data-i18n="contact-label">Inquiries</span>
+                <p class="text-body" style="margin-bottom: 20px;" data-i18n="contact-desc">
                     Currently accepting commissions for the 2026 season. <br>Please detail your project scope below.
                 </p>
 
                 <form onsubmit="handleContact(event)">
-                    <input type="text" class="minimal-input" placeholder="Nama" required>
+                    <input type="text" class="minimal-input" placeholder="Nama / Name" required>
                     <input type="email" class="minimal-input" placeholder="Email" required>
                     <input type="text" class="minimal-input" placeholder="Project Brief" required>
-                    <button type="submit" class="action-btn">Request Schedule</button>
+                    <button type="submit" class="action-btn" data-i18n="btn-send">Request Schedule</button>
                 </form>
             </div>
         </div>
@@ -598,12 +759,230 @@
         </div>
     </div>
 
+    <!-- MOVED TO BOTTOM OF BODY FOR Z-INDEX SAFETY -->
+    <!-- AUDIO PLAYER WIDGET -->
+    <div id="audio-widget" class="audio-widget">
+        <!-- Expanded Panel -->
+        <div class="audio-card">
+            <div class="track-info">
+                <!-- Cover Image (Using the logo or any other asset as placeholder) -->
+                <div class="track-art" style="background-image: url('assets/img/382339732_968167470924802_1926347205479482034_n.jpg');"></div>
+                <div class="track-details">
+                    <div class="track-name" id="track-name">Memories</div>
+                    <div class="track-artist" id="track-artist">Aksara Vibes</div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="time-display" id="curr-time">0:00</div>
+                <input type="range" min="0" max="100" value="0" class="progress-bar" id="seek-slider">
+                <div class="time-display" id="total-duration">0:00</div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="control-btn play-btn" onclick="playPauseTrack()" id="playpause-btn">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="control-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+            </div>
+        </div>
+        
+        <!-- Minimized Trigger Button -->
+        <div class="audio-trigger" onclick="toggleAudioPlayer()">
+            <div class="vinyl-spin"></div>
+            <i class="fa-solid fa-music trigger-icon"></i>
+        </div>
+    </div>
+
     <script>
+        // --- TRANSLATION DATA ---
+        const translations = {
+            en: {
+                "tagline": "Preserving Your Moments ✨",
+                "btn-website": "Our Website",
+                "btn-price": "Info Pricelist",
+                "btn-share": "Share Profile",
+                "about-label": "The Studio",
+                "about-text-1": "<span class='text-highlight'>Aksara Picture</span> is a graduation photography studio based in Malang, present to capture your graduation moments with elegant, natural, and story-filled results. We believe that graduation is not just a ceremony, but an important milestone in life worth remembering with the best visuals.",
+                "about-text-2": "With experience handling hundreds of graduation photo sessions, Aksara Picture serves both indoor and outdoor shoots, whether personal, with family, friends, or partners. Our photography style adapts to the client's character, ranging from classic formal, soft aesthetic, to warm and memorable candids.",
+                "about-text-3": "Not only in Malang, we are also ready to roll to Surabaya and Kediri, accompanying every graduate's step without hassle. Supported by professional photographers, quality equipment, and neat natural editing processes, we are committed to providing timeless photo results worthy of sharing on your special day.",
+                "service-label": "Specialties",
+                "contact-label": "Inquiries",
+                "contact-desc": "Currently accepting commissions for the 2026 season. <br>Please detail your project scope below.",
+                "btn-send": "Request Schedule",
+                "popup-tag": "BOOKING 2026",
+                "popup-title": "New Season Open",
+                "popup-desc": "Exclusive slots for commercial campaigns are now available. Let's craft your visual identity.",
+                "toast-copy": "Link Copied",
+                "toast-sent": "Sent Successfully"
+            },
+            id: {
+                "tagline": "Mengabadikan Momenmu ✨",
+                "btn-website": "Website Kami",
+                "btn-price": "Info Harga",
+                "btn-share": "Bagikan Profil",
+                "about-label": "Tentang Studio",
+                "about-text-1": "<span class='text-highlight'>Aksara Picture</span> adalah studio foto wisuda yang berbasis di Malang, hadir untuk mengabadikan momen kelulusanmu dengan hasil foto yang elegan, natural, dan penuh cerita. Kami percaya bahwa wisuda bukan sekadar seremoni, tapi titik penting perjalanan hidup yang layak dikenang dengan visual terbaik.",
+                "about-text-2": "Dengan pengalaman menangani ratusan sesi foto wisuda, Aksara Picture melayani pemotretan indoor maupun outdoor, baik secara personal, bersama keluarga, sahabat, maupun pasangan. Gaya pemotretan kami menyesuaikan karakter klien. mulai dari formal klasik, soft aesthetic, hingga candid yang hangat dan berkesan.",
+                "about-text-3": "Tak hanya di Malang, kami juga siap rolling ke Surabaya dan Kediri, menemani setiap langkah wisudawan tanpa ribet. Didukung fotografer profesional, peralatan berkualitas, serta proses editing yang rapi dan natural, kami berkomitmen memberikan hasil foto yang timeless dan layak dibagikan di hari spesialmu.",
+                "service-label": "Spesialisasi",
+                "contact-label": "Pemesanan",
+                "contact-desc": "Saat ini membuka slot untuk musim 2026. <br>Silakan jelaskan detail rencana foto Anda di bawah ini.",
+                "btn-send": "Minta Jadwal",
+                "popup-tag": "BOOKING 2026",
+                "popup-title": "Musim Baru Dibuka",
+                "popup-desc": "Slot eksklusif untuk kampanye komersial dan wisuda kini tersedia. Mari ciptakan identitas visual Anda.",
+                "toast-copy": "Tautan Disalin",
+                "toast-sent": "Terkirim Berhasil"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update UI State
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${lang}`).classList.add('active');
+
+            // Animate transition (simple fade effect)
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
+                    el.style.opacity = '1';
+                }, 200);
+            });
+            
+            // Add fade transition style to elements dynamically just once
+            if(!document.getElementById('lang-style')) {
+                const style = document.createElement('style');
+                style.id = 'lang-style';
+                style.innerHTML = `[data-i18n] { transition: opacity 0.3s ease; }`;
+                document.head.appendChild(style);
+            }
+        }
+
+        // --- AUDIO PLAYER LOGIC ---
+        const audio = new Audio();
+        let isPlaying = false;
+        let trackIndex = 0;
+        
+        // Define your playlist here. You can add more songs.
+        // NOTE: Replace 'source' with your local file like 'assets/audio/song.mp3' or a URL.
+        const playlist = [
+            {
+                name: "Semua Aku Dirayakan",
+                artist: "Nadin Amizah",
+                source: "https://audio.jukehost.co.uk/utAKbe4LJhyZonhgRpQmHvbZu4TeeGLA", 
+                image: "assets/img/382339732_968167470924802_1926347205479482034_n.jpg"
+            },
+             {
+                name: "Graduation Song",
+                artist: "Murphy Radio",
+                source: "https://audio.jukehost.co.uk/ostn7puyPB4tm5bKnhqmPT8FLhCLaqa6", 
+                image: "assets/img/382339732_968167470924802_1926347205479482034_n.jpg"
+            }
+        ];
+
+        const playPauseBtn = document.getElementById("playpause-btn");
+        const seekSlider = document.getElementById("seek-slider");
+        const currTime = document.getElementById("curr-time");
+        const totalDuration = document.getElementById("total-duration");
+        const trackName = document.getElementById("track-name");
+        const trackArtist = document.getElementById("track-artist");
+        const widget = document.getElementById("audio-widget");
+
+        function loadTrack(index) {
+            audio.src = playlist[index].source;
+            trackName.textContent = playlist[index].name;
+            trackArtist.textContent = playlist[index].artist;
+            audio.load();
+            
+            // Wait for metadata to load duration
+            audio.addEventListener("loadedmetadata", () => {
+                 totalDuration.textContent = formatTime(audio.duration);
+                 seekSlider.max = audio.duration;
+            });
+        }
+
+        function toggleAudioPlayer() {
+            widget.classList.toggle("open");
+        }
+
+        function playPauseTrack() {
+            if (isPlaying) {
+                pauseTrack();
+            } else {
+                playTrack();
+            }
+        }
+
+        function playTrack() {
+            audio.play();
+            isPlaying = true;
+            widget.classList.add("playing");
+            playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        }
+
+        function pauseTrack() {
+            audio.pause();
+            isPlaying = false;
+            widget.classList.remove("playing");
+            playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        }
+
+        function nextTrack() {
+            trackIndex = (trackIndex + 1) % playlist.length;
+            loadTrack(trackIndex);
+            playTrack();
+        }
+
+        function prevTrack() {
+            trackIndex = (trackIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(trackIndex);
+            playTrack();
+        }
+
+        function formatTime(seconds) {
+            let min = Math.floor(seconds / 60);
+            let sec = Math.floor(seconds % 60);
+            if (sec < 10) sec = `0${sec}`;
+            return `${min}:${sec}`;
+        }
+
+        // Event Listeners for Audio
+        audio.addEventListener("timeupdate", () => {
+            seekSlider.value = audio.currentTime;
+            currTime.textContent = formatTime(audio.currentTime);
+        });
+
+        audio.addEventListener("ended", nextTrack);
+
+        seekSlider.addEventListener("input", () => {
+            audio.currentTime = seekSlider.value;
+        });
+
+        // Initialize first track
+        loadTrack(trackIndex);
+
+
+        // --- EXISTING LOGIC ---
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.body.classList.add('loaded');
                 setTimeout(() => document.getElementById('promo-popup').classList.add('show'), 1000);
             }, 1500);
+            
+            // Set default lang based on HTML lang attribute or browser
+            setLanguage('id'); // Defaulting to ID as requested by the original text content
         });
 
         function closePopup() { document.getElementById('promo-popup').classList.remove('show'); }
@@ -643,12 +1022,25 @@
             }
         }
 
-        function sharePage() { navigator.clipboard.writeText(window.location.href); showToast("Link Copied"); }
-        function handleContact(e) { e.preventDefault(); showToast("Sent"); e.target.reset(); }
+        function sharePage() { 
+            navigator.clipboard.writeText(window.location.href); 
+            showToast(translations[currentLang]["toast-copy"]); 
+        }
+        
+        function handleContact(e) { 
+            e.preventDefault(); 
+            showToast(translations[currentLang]["toast-sent"]); 
+            e.target.reset(); 
+        }
+        
         function showToast(msg) {
-            const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show");
+            const t = document.getElementById("toast"); 
+            t.textContent = msg; 
+            t.classList.add("show");
             setTimeout(() => t.classList.remove("show"), 2500);
         }
+        
     </script>
+    
 </body>
 </html>
