@@ -49,8 +49,6 @@
             letter-spacing: -0.01em;
         }
 
-
-
         /* =========================================
            PRELOADER
            ========================================= */
@@ -140,6 +138,92 @@
         .lang-btn:hover:not(.active) {
             color: #fff;
         }
+
+        /* =========================================
+           IOS NOTIFICATION STYLE
+           ========================================= */
+        .ios-notification {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150%);
+            width: 92%;
+            max-width: 380px;
+            background: rgba(30, 30, 30, 0.7); /* Dark Glass iOS */
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 18px;
+            padding: 12px 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 6000;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-decoration: none;
+        }
+
+        .ios-notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .notif-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .notif-app-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .notif-icon-box {
+            width: 20px;
+            height: 20px;
+            background: #25D366;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .notif-app-name {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .notif-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .notif-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .notif-message {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            margin: 0;
+            line-height: 1.3;
+        }
+
 
         /* =========================================
            AUDIO PLAYER WIDGET (FIXED POSITIONING)
@@ -445,7 +529,7 @@
         
         .agency-name { 
             font-family: var(--font-serif);
-            font-weight: 300; font-style: italic; font-size: 3rem; 
+            font-weight: 400; font-style: italic; font-size: 3.5rem; 
             letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; color: #fff; 
         }
         
@@ -596,7 +680,7 @@
         }
         
         @media (max-width: 767px) {
-            .agency-name { font-size: 2.5rem; } 
+            .agency-name { font-size: 2.8rem; } 
             .glass-card { padding: 30px 24px; }
             .brand-header { margin-bottom: 2.5rem; }
             .bg-slider { opacity: 0.8; }
@@ -623,6 +707,26 @@
         <button class="lang-btn" onclick="setLanguage('id')" id="btn-id">ID</button>
         <button class="lang-btn active" onclick="setLanguage('en')" id="btn-en">EN</button>
     </div>
+
+    <!-- WHATSAPP NOTIFICATION (IOS STYLE) -->
+    <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" target="_blank" id="wa-notification" class="ios-notification">
+        <div class="notif-header">
+            <div class="notif-app-info">
+                <div class="notif-icon-box">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <span class="notif-app-name">WhatsApp</span>
+            </div>
+            <span class="notif-time">now</span>
+        </div>
+        <div class="notif-content">
+            <h4 class="notif-title">Aksara Picture</h4>
+            <p class="notif-message">Hei Aksara sudah siap ngefotoin momen wisudamu loo..</p>
+        </div>
+    </a>
+
+    <!-- NOTIFICATION SOUND -->
+    <audio id="notif-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
 
     <!-- PROMO POPUP -->
     <div id="promo-popup">
@@ -673,7 +777,7 @@
             </div>
 
             <div class="menu-list">
-                <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" class="glass-btn">
+                <a href="https://aksarapicturemlg.vercel.app/" class="glass-btn">
                     <span class="btn-label" data-i18n="btn-website">Our Website</span>
                     <i class="fa-brands fa-chrome btn-icon-right"></i>
                 </a>
@@ -878,15 +982,15 @@
         // NOTE: Replace 'source' with your local file like 'assets/audio/song.mp3' or a URL.
         const playlist = [
             {
-                name: "Semua Aku Dirayakan",
-                artist: "Nadin Amizah",
-                source: "https://audio.jukehost.co.uk/utAKbe4LJhyZonhgRpQmHvbZu4TeeGLA", 
+                name: "Golden Hour (Piano)",
+                artist: "Aksara Vibes",
+                source: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", 
                 image: "assets/img/382339732_968167470924802_1926347205479482034_n.jpg"
             },
              {
-                name: "Graduation Song",
-                artist: "Murphy Radio",
-                source: "https://audio.jukehost.co.uk/ostn7puyPB4tm5bKnhqmPT8FLhCLaqa6", 
+                name: "Graduation Day",
+                artist: "Aksara Vibes",
+                source: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", 
                 image: "assets/img/382339732_968167470924802_1926347205479482034_n.jpg"
             }
         ];
@@ -980,6 +1084,22 @@
                 document.body.classList.add('loaded');
                 setTimeout(() => document.getElementById('promo-popup').classList.add('show'), 1000);
             }, 1500);
+
+            // Trigger Whatsapp Notification after 5 seconds, then hide after 3 seconds
+            setTimeout(() => {
+                const waNotif = document.getElementById('wa-notification');
+                const notifSound = document.getElementById('notif-sound');
+                
+                waNotif.classList.add('show');
+                
+                // Play notification sound (with catch for autoplay policies)
+                notifSound.play().catch(e => console.log("Sound autoplay blocked:", e));
+                
+                // Hide automatically after 3 seconds
+                setTimeout(() => {
+                    waNotif.classList.remove('show');
+                }, 3000);
+            }, 5000);
             
             // Set default lang based on HTML lang attribute or browser
             setLanguage('id'); // Defaulting to ID as requested by the original text content
