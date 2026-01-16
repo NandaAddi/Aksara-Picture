@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aksara Picture - Foto Wisuda Malang Surabaya Kediri</title>
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Fonts: Playfair Display (Serif) & Manrope (Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
-    
     <style>
         /* --- SYSTEM VARIABLES --- */
         :root {
@@ -433,8 +430,11 @@
             aspect-ratio: 1 / 1;
             height: auto;
             position: relative;
+            background-color: #111;
+            /* Default Image */
             background-image: url('end year.webp');
             background-size: cover; background-position: center;
+            transition: background-image 0.5s ease;
         }
         
         .popup-tag {
@@ -542,7 +542,7 @@
         /* =========================================
            GLASS BUTTONS (MENU)
            ========================================= */
-        .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
+        .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; min-height: 200px; }
         
         .glass-btn {
             position: relative; width: 100%; max-width: 320px;
@@ -691,10 +691,8 @@
 </head>
 <body>
 
-    <!-- PRELOADER -->
     <div id="preloader">
         <div class="preloader-logo-box">
-            <!-- RESTORED: Original Image -->
             <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="preloader-img">
         </div>
         <div class="loading-line-wrapper">
@@ -702,13 +700,11 @@
         </div>
     </div>
 
-    <!-- LANGUAGE SWITCHER -->
     <div class="lang-switch">
         <button class="lang-btn" onclick="setLanguage('id')" id="btn-id">ID</button>
         <button class="lang-btn active" onclick="setLanguage('en')" id="btn-en">EN</button>
     </div>
 
-    <!-- WHATSAPP NOTIFICATION (IOS STYLE) -->
     <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" target="_blank" id="wa-notification" class="ios-notification">
         <div class="notif-header">
             <div class="notif-app-info">
@@ -725,26 +721,24 @@
         </div>
     </a>
 
-    <!-- NOTIFICATION SOUND -->
     <audio id="notif-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
 
-    <!-- PROMO POPUP -->
-    <div id="promo-popup">
-        <div class="popup-glass">
-            <button class="close-icon" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="popup-visual">
-                <div class="popup-tag" data-i18n="popup-tag">BOOKING 2026</div>
+        <div id="promo-popup">
+                <div class="popup-glass">
+                    <button class="close-icon" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
+                    
+                    <div class="popup-visual" id="popup-visual">
+                        <div class="popup-tag" id="popup-tag">LOADING...</div>
+                    </div>
+                    
+                    <div class="popup-body">
+                        <h3 class="popup-h" id="popup-title">Checking Promo...</h3>
+                        <p class="popup-p" id="popup-desc">Fetching latest updates...</p>
+                    </div>
+                </div>
             </div>
-            <div class="popup-body">
-                <h3 class="popup-h" data-i18n="popup-title">New Season Open</h3>
-                <p class="popup-p" data-i18n="popup-desc">Exclusive slots for commercial campaigns are now available. Let's craft your visual identity.</p>
-            </div>
-        </div>
-    </div>
 
-    <!-- BACKGROUND SLIDER -->
     <div class="bg-slider">
-        <!-- RESTORED: Original Images -->
         <div class="slide-item active" 
              style="--bg-desktop: url('hz1.webp'); 
                     --bg-mobile: url('vz1.webp');">
@@ -772,11 +766,9 @@
 
     <div class="main-container">
         
-        <!-- HOME VIEW -->
         <div id="home-view" class="view-section active">
             <div class="brand-header">
                 <div class="logo-box">
-                    <!-- RESTORED: Original Image -->
                     <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="logo-img">
                 </div>
                 
@@ -784,34 +776,14 @@
                 <p class="agency-tagline" data-i18n="tagline">Preserving Your Moments ✨</p>
             </div>
 
-            <div class="menu-list">
-                <a href="https://aksarapicturemlg.vercel.app/" class="glass-btn">
-                    <span class="btn-label" data-i18n="btn-website">Our Website</span>
-                    <i class="fa-brands fa-chrome btn-icon-right"></i>
-                </a>
-                <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" class="glass-btn">
-                    <span class="btn-label" data-i18n="btn-price">Info Pricelist</span>
-                    <i class="fa-brands fa-whatsapp btn-icon-right"></i>
-                </a>
-                <a href="https://www.instagram.com/aksarapicture.mlg" class="glass-btn">
-                    <span class="btn-label">Instagram</span>
-                    <i class="fa-brands fa-instagram btn-icon-right"></i>
-                </a>
-
-                <a href="https://www.tiktok.com/@aksarapicturemlg" class="glass-btn">
-                    <span class="btn-label">Tiktok</span>
-                    <i class="fa-brands fa-tiktok btn-icon-right"></i>
-                </a>
-                <div onclick="sharePage()" class="glass-btn">
-                    <span class="btn-label" data-i18n="btn-share">Share Profile</span>
-                    <i class="fa-solid fa-arrow-up-from-bracket btn-icon-right"></i>
+            <div class="menu-list" id="dynamic-menu">
+                <div style="color: rgba(255,255,255,0.5); font-family: var(--font-sans); font-size: 0.9rem; padding: 20px;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading links...
                 </div>
-                 <p class="agency-tagline">#rollingwithaksara</p>
             </div>
             
         </div>
 
-        <!-- ABOUT VIEW -->
         <div id="about-view" class="view-section">
             <div class="glass-card">
                 <span class="section-label" data-i18n="about-label">The Studio</span>
@@ -835,7 +807,6 @@
             </div>
         </div>
 
-        <!-- CONTACT VIEW -->
         <div id="contact-view" class="view-section">
             <div class="glass-card">
                 <span class="section-label" data-i18n="contact-label">Inquiries</span>
@@ -856,7 +827,6 @@
 
     <div class="copyright">© 2026 Aksarapicture.mlg</div>
 
-    <!-- FLOATING DOCK -->
     <div class="dock-wrapper">
         <div class="glass-dock">
             <button class="dock-btn active" onclick="switchView('home-view')" id="nav-home">
@@ -871,13 +841,9 @@
         </div>
     </div>
 
-    <!-- MOVED TO BOTTOM OF BODY FOR Z-INDEX SAFETY -->
-    <!-- AUDIO PLAYER WIDGET -->
     <div id="audio-widget" class="audio-widget">
-        <!-- Expanded Panel -->
         <div class="audio-card">
             <div class="track-info">
-                <!-- Cover Image (Using the logo or any other asset as placeholder) -->
                 <div class="track-art" style="background-image: url('assets/img/382339732_968167470924802_1926347205479482034_n.jpg');"></div>
                 <div class="track-details">
                     <div class="track-name" id="track-name">Memories</div>
@@ -900,7 +866,6 @@
             </div>
         </div>
         
-        <!-- Minimized Trigger Button -->
         <div class="audio-trigger" onclick="toggleAudioPlayer()">
             <div class="vinyl-spin"></div>
             <i class="fa-solid fa-music trigger-icon"></i>
@@ -1090,6 +1055,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.body.classList.add('loaded');
+                // Show Popup after load
                 setTimeout(() => document.getElementById('promo-popup').classList.add('show'), 1000);
             }, 1500);
 
@@ -1170,6 +1136,139 @@
         
     </script>
     
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    // --- GANTI DENGAN PUNYA KAMU ---
+    const SUPABASE_URL = 'https://rgeshbeiweqnnkbhgoya.supabase.co'; 
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnZXNoYmVpd2Vxbm5rYmhnb3lhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2MzcxMTgsImV4cCI6MjA4MzIxMzExOH0.6N7jBP4C0KwHxYA8ymRT1UbN9kTyyQ2O3WV2Umvcdz4'; 
+
+    // Cek apakah SDK Supabase terload
+    if (typeof supabase === 'undefined') {
+        alert("Error: Script Supabase CDN belum terpasang!");
+    }
+
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// --- 1. FETCH LINKTREE (UPDATED) ---
+    async function fetchAndRenderLinks() {
+        const container = document.getElementById('dynamic-menu');
+        
+        try {
+            console.log("Mulai mengambil data...");
+            
+            // --- PERUBAHAN ADA DI SINI ---
+            const { data: links, error } = await client
+                .from('links')
+                .select('*')
+                .order('sort_order', { ascending: true }); // Ganti 'created_at' jadi 'sort_order'
+
+            if (error) {
+                alert("Error Database: " + error.message);
+                container.innerHTML = '<p style="color:red">Error Database. Cek Console.</p>';
+                console.error(error);
+                return;
+            }
+
+            if (links.length === 0) {
+                container.innerHTML = '<p style="color:white">Database KOSONG (Belum ada link).</p>';
+                addShareButton(container);
+                return;
+            }
+
+            // Render Sukses
+            container.innerHTML = '';
+            links.forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.className = 'glass-btn';
+                a.target = '_blank';
+                
+                // Cek variabel currentLang global
+                const lang = (typeof currentLang !== 'undefined') ? currentLang : 'id';
+                const labelText = lang === 'id' ? link.label_id : link.label_en;
+
+                a.innerHTML = `
+                    <span class="btn-label">${labelText}</span>
+                    <i class="${link.icon} btn-icon-right"></i>
+                `;
+                container.appendChild(a);
+            });
+
+            addShareButton(container);
+
+        } catch (err) {
+            alert("Error Kodingan: " + err.message);
+        }
+    }
+
+    function addShareButton(container) {
+         // Render Tombol Share & Tagline
+         const shareText = (typeof translations !== 'undefined' && typeof currentLang !== 'undefined') 
+                          ? translations[currentLang]["btn-share"] 
+                          : "Share Profile";
+
+        const shareBtn = document.createElement('div');
+        shareBtn.className = 'glass-btn';
+        shareBtn.onclick = sharePage; 
+        shareBtn.innerHTML = `
+            <span class="btn-label" data-i18n="btn-share">${shareText}</span>
+            <i class="fa-solid fa-arrow-up-from-bracket btn-icon-right"></i>
+        `;
+        container.appendChild(shareBtn);
+
+        const tagline = document.createElement('p');
+        tagline.className = 'agency-tagline';
+        tagline.innerText = '#rollingwithaksara';
+        container.appendChild(tagline);
+    }
+
+    // --- 2. FETCH POPUP ---
+    async function fetchPopup() {
+        if(!client) return; // Gunakan variable client yang sudah dibuat
+
+        // Ambil 1 data popup terbaru
+        const { data, error } = await client
+            .from('popups')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(1);
+
+        if (error || !data || data.length === 0) {
+            console.log("No active popup found.");
+            return; 
+        }
+
+        const popup = data[0];
+        // Update HTML Elements
+        const visual = document.getElementById('popup-visual');
+        const tag = document.getElementById('popup-tag');
+        const title = document.getElementById('popup-title');
+        const desc = document.getElementById('popup-desc');
+
+        if(popup.tag) tag.textContent = popup.tag;
+        if(popup.title) title.textContent = popup.title;
+        if(popup.description) desc.textContent = popup.description;
+        
+        // Update BG Image
+        if(popup.image_url) {
+            visual.style.backgroundImage = `url('${popup.image_url}')`;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchAndRenderLinks();
+        fetchPopup(); // <--- Panggil Popup Disini
+    });
+    
+    // Sambungkan ke fungsi ganti bahasa yang lama
+    if (typeof setLanguage === 'function') {
+        const originalSetLanguage = setLanguage; 
+        setLanguage = function(lang) {
+            originalSetLanguage(lang); 
+            fetchAndRenderLinks(); 
+        };
+    }
+</script>
 </body>
 </html>
-
