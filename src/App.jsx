@@ -26,6 +26,12 @@ export default function App() {
   const [enteringView, setEnteringView] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '' });
+  const [redirectState, setRedirectState] = useState({
+    isRedirecting: false,
+    statusText: 'Connecting',
+    progressWidth: '0%',
+    isError: false
+  });
 
   const { links, loadingLinks, popup } = useSupabase();
 
@@ -34,14 +40,67 @@ export default function App() {
     return translations[lang]?.[key] || key;
   };
 
-  // Preloader delay
+  // Preloader delay and shortlink detection
   useEffect(() => {
-    document.body.classList.remove('loaded');
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-      document.body.classList.add('loaded');
-    }, 1500);
-    return () => clearTimeout(timer);
+    const path = window.location.pathname;
+    let slug = path.substring(1).replace(/\/$/, "");
+    
+    if (!slug || slug === 'index.html' || slug.includes('.')) {
+      // Normal Linkbio site load
+      document.body.classList.remove('loaded');
+      const timer = setTimeout(() => {
+        setIsLoaded(true);
+        document.body.classList.add('loaded');
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+
+    // Shortlink redirect mode!
+    setRedirectState(prev => ({ ...prev, isRedirecting: true }));
+    
+    // Initial progress line animation
+    const progressTimer = setTimeout(() => {
+      setRedirectState(prev => ({ ...prev, progressWidth: '30%', statusText: 'Locating...' }));
+    }, 50);
+
+    const resolveRedirect = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('shortlinks')
+          .select('original_url, clicks, id')
+          .eq('slug', slug)
+          .single();
+
+        if (error || !data || !data.original_url) {
+          throw new Error('Link not found');
+        }
+
+        setRedirectState(prev => ({ ...prev, progressWidth: '100%', statusText: 'Redirecting...' }));
+
+        // Increment clicks in background
+        supabase
+          .from('shortlinks')
+          .update({ clicks: (data.clicks || 0) + 1 })
+          .eq('id', data.id)
+          .then();
+
+        setTimeout(() => {
+          window.location.replace(data.original_url);
+        }, 800);
+
+      } catch (err) {
+        console.error('Redirect error:', err);
+        setRedirectState(prev => ({ ...prev, progressWidth: '100%', statusText: 'Link Not Found', isError: true }));
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      }
+    };
+
+    resolveRedirect();
+
+    return () => clearTimeout(progressTimer);
   }, []);
 
   // Toast utility
@@ -145,6 +204,98 @@ Mohon info jadwal dan ketersediaan slotnya ya. Terima kasih!`;
     }
     return classes;
   };
+
+  if (redirectState.isRedirecting) {
+    return (
+      <div 
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 99999,
+          backgroundColor: '#000000',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          fontFamily: 'sans-serif',
+          color: '#ffffff'
+        }}
+      >
+        <style>{`
+          @keyframes premiumPulse {
+            0% {
+              transform: scale(0.95);
+              filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.15));
+              opacity: 0.8;
+            }
+            100% {
+              transform: scale(1.05);
+              filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6));
+              opacity: 1;
+            }
+          }
+          .animate-pulse-premium {
+            animation: premiumPulse 1.5s ease-in-out infinite alternate;
+          }
+        `}</style>
+
+        {/* Premium Dark Radial Glow */}
+        <div 
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(circle at center, rgba(20,20,20,0.8) 0%, #000000 80%)',
+            pointerEvents: 'none'
+          }}
+        />
+        
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {/* Pulsating Logo SVG */}
+          <div className="animate-pulse-premium" style={{ width: '180px', height: '72px', marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.3s' }}>
+            <img 
+              src="/assets/img/preloader.svg" 
+              alt="Aksara Picture Preloader Logo" 
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            />
+          </div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', marginTop: '8px' }}>
+            {/* Status text */}
+            <p 
+              style={{
+                fontSize: '9px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.25em',
+                fontWeight: 600,
+                transition: 'color 0.3s',
+                color: redirectState.isError ? '#ef4444' : redirectState.statusText === 'Redirecting...' ? '#d4af37' : '#9ca3af'
+              }}
+            >
+              {redirectState.statusText}
+            </p>
+
+            {/* Thin premium loading line */}
+            <div style={{ width: '140px', height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)', overflow: 'hidden', position: 'relative' }}>
+              <div 
+                style={{
+                  width: redirectState.progressWidth,
+                  height: '100%',
+                  transition: 'all 700ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  backgroundColor: redirectState.isError ? '#ef4444' : '#d4af37',
+                  boxShadow: redirectState.isError ? 'none' : '0 0 10px rgba(212,175,55,0.4)'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div style={{ position: 'absolute', bottom: '32px', fontSize: '9px', color: 'rgba(255, 255, 255, 0.3)', letterSpacing: '0.3em', textTransform: 'uppercase', zIndex: 10 }}>
+          Secure Redirect
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AudioProvider>
