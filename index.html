@@ -4,1271 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aksara Picture - Foto Wisuda Malang Surabaya Kediri</title>
+    <link rel="canonical" href="https://bio.aksarapicture.web.id/">
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
     
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aksara Picture - Jasa foto wisuda profesional di Malang, Surabaya, dan Kediri. Mengabadikan momen kelulusanmu dengan hasil foto elegan, natural, dan timeless.">
+    <meta name="keywords" content="foto wisuda malang, fotografer wisuda malang, studio foto malang, aksara picture, aksara picture malang, foto kelulusan surabaya, foto wisuda kediri">
+    <meta name="author" content="Aksara Picture">
+
+    <!-- Open Graph / OG Tags (WhatsApp, Facebook, Discord) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Aksara Picture - Foto Wisuda Malang Surabaya Kediri">
+    <meta property="og:description" content="Abadikan momen penting kelulusanmu dengan visual elegan dan natural bersama Aksara Picture. Booking slot musim 2026 sekarang!">
+    <meta property="og:image" content="https://bio.aksarapicture.web.id/og-image.webp">
+    <meta property="og:url" content="https://bio.aksarapicture.web.id">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aksara Picture - Foto Wisuda Malang Surabaya Kediri">
+    <meta name="twitter:description" content="Abadikan momen penting kelulusanmu dengan visual elegan dan natural bersama Aksara Picture.">
+    <meta name="twitter:image" content="https://bio.aksarapicture.web.id/og-image.webp">
+
+    <!-- LCP Image Preloads -->
+    <link rel="preload" as="image" href="/hz1.webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/vz1.webp" media="(max-width: 768px)" fetchpriority="high">
+
+    <!-- Preconnects for CDN resources -->
+    <link rel="preconnect" href="https://audio.jukehost.co.uk" crossorigin>
+    <link rel="preconnect" href="https://assets.mixkit.co" crossorigin>
+
+    <!-- FontAwesome Icon CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
-    <style>
-        /* --- SYSTEM VARIABLES --- */
-        :root {
-            --bg-color: #030303;
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.75);
-            --text-muted: rgba(255, 255, 255, 0.5);
-            --accent-color: #E3CFA3; /* Champagne Gold */
-            
-            --glass-surface: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.1);
-            --glass-blur: 24px;
-            
-            /* TYPOGRAPHY CONFIG */
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Manrope', sans-serif;
-            
-            --easing: cubic-bezier(0.34, 1.56, 0.64, 1); 
-        }
-
-        /* --- RESET & BASE --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            height: 100dvh;
-            overflow: hidden;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            letter-spacing: -0.01em;
-        }
-
-        /* =========================================
-           PRELOADER
-           ========================================= */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1.2s var(--easing), visibility 1.2s;
-        }
-        
-        .preloader-logo-box {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 30px;
-            animation: fadeUp 1s ease-out;
-            box-shadow: 0 0 30px rgba(227, 207, 163, 0.1);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .preloader-img { width: 100%; height: 100%; object-fit: cover; }
-
-        .loading-line-wrapper { width: 120px; height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; }
-        .loading-line {
-            width: 100%; height: 100%; background: var(--text-primary);
-            transform: translateX(-100%); animation: loadAnim 1.5s var(--easing) forwards;
-        }
-        @keyframes loadAnim { 0% { transform: translateX(-100%); } 100% { transform: translateX(0); } }
-        body.loaded #preloader { opacity: 0; visibility: hidden; }
-
-        /* =========================================
-           BACKGROUND SLIDER
-           ========================================= */
-        .bg-slider { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
-        .slide-item {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center;
-            opacity: 0; transition: opacity 2.5s ease-in-out, transform 12s linear;
-            transform: scale(1.08); background-image: var(--bg-desktop);
-        }
-        @media (max-width: 768px) { .slide-item { background-image: var(--bg-mobile); background-position: center top; } }
-        .slide-item.active { opacity: 1; transform: scale(1); }
-        
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); 
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.95) 100%);
-            z-index: -1; pointer-events: none;
-        }
-
-        /* =========================================
-           LANGUAGE SWITCHER
-           ========================================= */
-        .lang-switch {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 1000;
-            display: flex;
-            gap: 8px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            padding: 4px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn.active {
-            background: rgba(255,255,255,0.15);
-            color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        }
-
-        .lang-btn:hover:not(.active) {
-            color: #fff;
-        }
-
-        /* =========================================
-           IOS NOTIFICATION STYLE
-           ========================================= */
-        .ios-notification {
-            position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-150%);
-            width: 92%;
-            max-width: 380px;
-            background: rgba(30, 30, 30, 0.7); /* Dark Glass iOS */
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 18px;
-            padding: 12px 14px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-            z-index: 6000;
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            text-decoration: none;
-        }
-
-        .ios-notification.show {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .notif-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.5);
-        }
-
-        .notif-app-info {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .notif-icon-box {
-            width: 20px;
-            height: 20px;
-            background: #25D366;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #fff;
-        }
-
-        .notif-app-name {
-            font-weight: 500;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.5px;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .notif-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .notif-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #fff;
-            margin: 0;
-        }
-
-        .notif-message {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.9);
-            margin: 0;
-            line-height: 1.3;
-        }
-
-
-        /* =========================================
-           AUDIO PLAYER WIDGET (FIXED POSITIONING)
-           ========================================= */
-        .audio-widget {
-            /* Container logic only - let click pass through */
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            z-index: 2000;
-            pointer-events: none;
-        }
-
-        /* The circular floating button - STRICT BOTTOM RIGHT */
-        .audio-trigger {
-            pointer-events: auto; /* Enable clicks */
-            position: fixed;
-            top: auto !important;
-            left: auto !important;
-            bottom: 30px !important;
-            right: 30px !important; 
-            margin: 0 !important;
-            transform: none; /* Prevent transform offsets */
-            
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.4s var(--easing); /* Only animate transform */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            z-index: 2001;
-        }
-        
-        .audio-trigger:hover { transform: scale(1.05); border-color: var(--accent-color); }
-        
-        /* Rotating Vinyl Icon */
-        .trigger-icon {
-            font-size: 1.2rem;
-            color: #fff;
-            z-index: 2;
-        }
-        
-        .vinyl-spin {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: url('https://www.transparenttextures.com/patterns/dark-matter.png'), radial-gradient(circle, #333 10%, #111 90%);
-            opacity: 0.8;
-            animation: spin 4s linear infinite;
-            display: none; 
-        }
-        .audio-widget.playing .vinyl-spin { display: block; }
-        .audio-widget.playing .trigger-icon { display: none; }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* The Expanded Player Card - STRICT BOTTOM LEFT */
-        .audio-card {
-            pointer-events: auto; /* Enable clicks */
-            position: fixed;
-            top: auto !important;
-            right: auto !important;
-            bottom: 30px !important;
-            left: 30px !important;
-            margin: 0 !important;
-            
-            width: 280px;
-            background: rgba(15, 15, 15, 0.85);
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 20px;
-            transform-origin: bottom left;
-            transform: scale(0.9) translateY(20px);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s var(--easing);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            z-index: 2000;
-        }
-
-        .audio-widget.open .audio-card {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .track-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .track-art {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            background-size: cover;
-            background-position: center;
-            background-color: #333;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .track-details { flex: 1; overflow: hidden; }
-        .track-name { 
-            font-family: var(--font-sans); font-size: 0.9rem; font-weight: 700; color: #fff; 
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
-        }
-        .track-artist { 
-            font-family: var(--font-serif); font-size: 0.75rem; color: var(--accent-color); font-style: italic; 
-        }
-
-        /* Custom Progress Bar */
-        .progress-container {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .progress-bar {
-            flex: 1;
-            -webkit-appearance: none;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            cursor: pointer;
-        }
-        
-        .progress-bar::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 10px; height: 10px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .progress-bar:hover::-webkit-slider-thumb { transform: scale(1.3); }
-
-        .time-display { font-size: 0.65rem; color: var(--text-muted); width: 30px; text-align: center; }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .control-btn {
-            background: transparent;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-        .control-btn:hover { color: var(--accent-color); }
-        .play-btn { 
-            width: 36px; height: 36px; 
-            border-radius: 50%; 
-            background: #fff; 
-            color: #000; 
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.9rem;
-            padding-left: 2px; /* optical adjustment */
-        }
-        .play-btn:hover { transform: scale(1.1); color: #000; }
-
-        @media (max-width: 767px) {
-            /* Mobile adjustment to stay above the dock */
-            .audio-trigger { bottom: 90px !important; right: 20px !important; } 
-            .audio-card { bottom: 90px !important; left: 20px !important; width: 260px; }
-        }
-
-        /* =========================================
-           PROMO POPUP
-           ========================================= */
-        #promo-popup {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px);
-            z-index: 5000; display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: all 0.6s var(--easing);
-        }
-        #promo-popup.show { opacity: 1; visibility: visible; }
-        .popup-glass {
-            background: rgba(20, 20, 20, 0.8); border: 1px solid var(--glass-border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6); backdrop-filter: blur(40px);
-            width: 85%; max-width: 340px;
-            border-radius: 24px; overflow: hidden;
-            transform: scale(0.9) translateY(20px); transition: all 0.6s var(--easing); position: relative;
-        }
-        #promo-popup.show .popup-glass { transform: scale(1) translateY(0); }
-        
-        .popup-visual {
-            width: 100%; 
-            aspect-ratio: 1 / 1;
-            height: auto;
-            position: relative;
-            background-color: #111;
-            /* Default Image */
-            background-image: url('end year.webp');
-            background-size: cover; background-position: center;
-            transition: background-image 0.5s ease;
-        }
-        
-        .popup-tag {
-            position: absolute; top: 16px; right: 16px;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 6px 14px;
-            border-radius: 100px; font-size: 0.6rem; font-weight: 600; 
-            letter-spacing: 0.08em; text-transform: uppercase;
-            font-family: var(--font-sans);
-        }
-        .popup-body { padding: 30px 24px; text-align: center; }
-        
-        .popup-h { 
-            font-family: var(--font-serif);
-            font-size: 1.5rem; 
-            font-weight: 500; 
-            margin-bottom: 8px; 
-            color: #fff; 
-            letter-spacing: -0.01em;
-            line-height: 1.2;
-        }
-        
-        .popup-p { 
-            font-size: 0.85rem; color: var(--text-secondary); 
-            margin-bottom: 24px; line-height: 1.7; font-weight: 300; 
-        }
-        
-        .close-icon {
-            position: absolute; top: 16px; left: 16px; color: #fff;
-            background: rgba(0,0,0,0.3); width: 32px; height: 32px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;
-            backdrop-filter: blur(4px); transition: all 0.3s; z-index: 10;
-        }
-        .close-icon:hover { background: rgba(255,255,255,0.5); transform: rotate(90deg); color: #000; }
-
-        /* =========================================
-           LAYOUT & TRANSITIONS
-           ========================================= */
-        .main-container {
-            width: 100%; height: 100%; 
-            position: relative;
-            z-index: 10;
-            overflow: hidden;
-            perspective: 1000px;
-        }
-        
-        .view-section {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%; max-width: 420px; 
-            text-align: center;
-            opacity: 0; 
-            visibility: hidden;
-            pointer-events: none;
-            transition: none;
-            padding-bottom: 100px;
-            transform-origin: center center;
-        }
-
-        .view-section.active {
-            opacity: 1; visibility: visible; pointer-events: all;
-            transform: translate(-50%, -50%) scale(1); filter: blur(0);
-        }
-
-        .view-section.entering { animation: hyperCoolIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .view-section.exiting { pointer-events: none; animation: hyperCoolOut 0.7s cubic-bezier(0.7, 0, 0.84, 0) forwards; }
-
-        @keyframes hyperCoolIn {
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(1.15) translateY(30px); filter: blur(15px); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1) translateY(0); filter: blur(0); }
-        }
-
-        @keyframes hyperCoolOut {
-            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9) translateY(-30px); filter: blur(20px); }
-        }
-
-        .brand-header { margin-bottom: 3.5rem; display: flex; flex-direction: column; align-items: center; }
-        
-        .logo-box {
-            width: 100px; height: 100px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin-bottom: 25px; backdrop-filter: blur(10px);
-            overflow: hidden; 
-            background: rgba(255,255,255,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        .logo-img { width: 100%; height: 100%; object-fit: cover; opacity: 1; }
-        
-        .agency-name { 
-            font-family: var(--font-serif);
-            font-weight: 400; font-style: italic; font-size: 3.5rem; 
-            letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; color: #fff; 
-        }
-        
-        .agency-tagline { 
-            font-family: var(--font-sans);
-            font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; 
-            color: var(--text-secondary); font-weight: 500; 
-        }
-
-        /* =========================================
-           GLASS BUTTONS (MENU)
-           ========================================= */
-        .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; min-height: 200px; }
-        
-        .glass-btn {
-            position: relative; width: 100%; max-width: 320px;
-            background: var(--glass-surface); border: 1px solid var(--glass-border);
-            padding: 20px 24px;
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: space-between;
-            text-decoration: none; cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-        }
-        
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 20px rgba(227, 207, 163, 0.1);
-        }
-        
-        .btn-label { 
-            font-family: var(--font-sans);
-            font-size: 0.9rem; color: #fff; font-weight: 500; letter-spacing: 0.02em; 
-        }
-        
-        .btn-icon-right { color: var(--text-muted); font-size: 0.8rem; transition: transform 0.3s; }
-        .glass-btn:hover .btn-icon-right { transform: translateX(5px); color: var(--accent-color); }
-
-        /* =========================================
-           GLASS CONTENT BOX
-           ========================================= */
-        .glass-card {
-            background: rgba(10, 10, 10, 0.6); border: 1px solid var(--glass-border);
-            backdrop-filter: blur(30px); padding: 40px 30px; border-radius: 24px;
-            text-align: left; max-height: 80vh; overflow-y: auto;
-            scrollbar-width: none;
-        }
-        .glass-card::-webkit-scrollbar { display: none; }
-        
-        .section-label { 
-            font-family: var(--font-sans);
-            font-size: 0.65rem; color: var(--accent-color); letter-spacing: 0.2em; 
-            text-transform: uppercase; margin-bottom: 18px; display: block; font-weight: 600; 
-        }
-        
-        .text-body { 
-            font-family: var(--font-sans);
-            font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); 
-            font-weight: 300; margin-bottom: 25px; 
-        }
-        
-        .text-highlight { 
-            color: #fff; font-weight: 400; font-family: var(--font-serif); 
-            font-style: italic; font-size: 1.05em;
-        }
-        
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; }
-        .service-item { 
-            font-family: var(--font-sans);
-            font-size: 0.8rem; color: var(--text-secondary); 
-            display: flex; align-items: center; gap: 10px; letter-spacing: 0.02em;
-        }
-        .dot { width: 3px; height: 3px; background: var(--accent-color); border-radius: 50%; }
-
-        /* FORM */
-        .minimal-input {
-            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
-            padding: 18px; border-radius: 12px; color: #fff; 
-            font-family: var(--font-sans);
-            font-size: 0.9rem; margin-bottom: 12px; transition: all 0.3s;
-        }
-        .minimal-input:focus { outline: none; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
-        .minimal-input::placeholder { color: var(--text-muted); font-weight: 300; }
-
-        .action-btn {
-            background: #fff; color: #000; border: none; padding: 18px;
-            width: 100%; border-radius: 12px; font-weight: 600; font-size: 0.85rem;
-            letter-spacing: 0.05em; cursor: pointer; margin-top: 10px;
-            transition: all 0.3s ease;
-            font-family: var(--font-sans);
-            text-transform: uppercase;
-        }
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 15px rgba(255,255,255,0.3);
-            background: #fff;
-        }
-
-        /* =========================================
-           FLOATING DOCK
-           ========================================= */
-        .dock-wrapper { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 100; }
-        .glass-dock {
-            background: rgba(20, 20, 20, 0.4); border: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(20px); padding: 6px; border-radius: 100px;
-            display: flex; gap: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .dock-btn {
-            background: transparent; border: none; color: var(--text-muted);
-            width: 44px; height: 44px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; cursor: pointer; transition: all 0.3s var(--easing); position: relative;
-        }
-        .dock-btn:hover {
-            color: #fff; background: rgba(255,255,255,0.15);
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .dock-btn.active { color: #fff; background: rgba(255,255,255,0.1); }
-        .dock-btn.active::after {
-            content: ''; position: absolute; bottom: 4px; width: 3px; height: 3px;
-            background: var(--accent-color); border-radius: 50%;
-        }
-
-        .copyright {
-            position: fixed; bottom: 10px; width: 100%; text-align: center;
-            font-size: 0.6rem; color: var(--text-muted); z-index: 5; pointer-events: none;
-            text-transform: uppercase; letter-spacing: 0.1em;
-            font-family: var(--font-sans);
-        }
-
-        #toast {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
-            background: rgba(255,255,255,0.9); color: #000; padding: 12px 28px;
-            font-weight: 600; font-size: 0.8rem; z-index: 5001;
-            transition: transform 0.5s var(--easing); border-radius: 100px; opacity: 0;
-            font-family: var(--font-sans);
-        }
-        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-        
-        /* --- RESPONSIVE MEDIA QUERIES --- */
-        @media (min-width: 768px) {
-            #about-view, #contact-view { max-width: 700px; }
-            #about-view .glass-card, #contact-view .glass-card { padding: 50px; }
-            #home-view { max-width: 420px; }
-        }
-        
-        @media (max-width: 767px) {
-            .agency-name { font-size: 2.8rem; } 
-            .glass-card { padding: 30px 24px; }
-            .brand-header { margin-bottom: 2.5rem; }
-            .bg-slider { opacity: 0.8; }
-            .view-section { width: 92%; }
-            .lang-switch { top: 20px; right: 20px; }
-        }
-    </style>
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://bio.aksarapicture.web.id/#organization",
+          "name": "Aksara Picture",
+          "url": "https://bio.aksarapicture.web.id",
+          "logo": "https://bio.aksarapicture.web.id/favicon/apple-touch-icon.png",
+          "sameAs": [
+            "https://www.instagram.com/aksarapicture.mlg",
+            "https://www.tiktok.com/@aksarapicture"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://bio.aksarapicture.web.id/#localbusiness",
+          "name": "Aksara Picture Malang",
+          "image": "https://bio.aksarapicture.web.id/og-image.webp",
+          "url": "https://bio.aksarapicture.web.id",
+          "telephone": "+62881026774401",
+          "priceRange": "Rp150.000 - Rp2.000.000",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Malang, Surabaya, Kediri",
+            "addressLocality": "Malang",
+            "addressRegion": "Jawa Timur",
+            "postalCode": "65145",
+            "addressCountry": "ID"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -7.983908,
+            "longitude": 112.621391
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "08:00",
+            "closes": "21:00"
+          },
+          "areaServed": [
+            {
+              "@type": "AdministrativeArea",
+              "name": "Malang"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Surabaya"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Kediri"
+            }
+          ],
+          "sameAs": [
+            "https://www.instagram.com/aksarapicture.mlg",
+            "https://www.tiktok.com/@aksarapicture"
+          ]
+        },
+        {
+          "@type": "Service",
+          "@id": "https://bio.aksarapicture.web.id/#service-graduation",
+          "name": "Jasa Foto Wisuda Malang, Surabaya, Kediri",
+          "provider": {
+            "@id": "https://bio.aksarapicture.web.id/#localbusiness"
+          },
+          "description": "Jasa foto wisuda profesional outdoor & studio oleh Aksara Picture. Melayani pemotretan personal, grup, keluarga di Malang, Surabaya, dan Kediri dengan hasil elegan dan editing berkualitas.",
+          "serviceType": "Graduation Photography",
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "IDR",
+            "lowPrice": "150000",
+            "highPrice": "2000000",
+            "offerCount": "4"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "184"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
-    <div id="preloader">
-        <div class="preloader-logo-box">
-            <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="preloader-img">
-        </div>
-        <div class="loading-line-wrapper">
-            <div class="loading-line"></div>
-        </div>
-    </div>
-
-    <div class="lang-switch">
-        <button class="lang-btn" onclick="setLanguage('id')" id="btn-id">ID</button>
-        <button class="lang-btn active" onclick="setLanguage('en')" id="btn-en">EN</button>
-    </div>
-
-    <a href="https://www.whatsapp.com/catalog/62881026774401/?app_absent=0" target="_blank" id="wa-notification" class="ios-notification">
-        <div class="notif-header">
-            <div class="notif-app-info">
-                <div class="notif-icon-box">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </div>
-                <span class="notif-app-name">WhatsApp</span>
-            </div>
-            <span class="notif-time">now</span>
-        </div>
-        <div class="notif-content">
-            <h4 class="notif-title">Aksara Picture</h4>
-            <p class="notif-message">Hei Aksara sudah siap ngefotoin momen wisudamu loo..</p>
-        </div>
-    </a>
-
-    <audio id="notif-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
-
-        <div id="promo-popup">
-                <div class="popup-glass">
-                    <button class="close-icon" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
-                    
-                    <div class="popup-visual" id="popup-visual">
-                        <div class="popup-tag" id="popup-tag">LOADING...</div>
-                    </div>
-                    
-                    <div class="popup-body">
-                        <h3 class="popup-h" id="popup-title">Checking Promo...</h3>
-                        <p class="popup-p" id="popup-desc">Fetching latest updates...</p>
-                    </div>
-                </div>
-            </div>
-
-    <div class="bg-slider">
-        <div class="slide-item active" 
-             style="--bg-desktop: url('hz1.webp'); 
-                    --bg-mobile: url('vz1.webp');">
-        </div>
-        <div class="slide-item" 
-             style="--bg-desktop: url('hz2.webp'); 
-                    --bg-mobile: url('2.webp');">
-        </div>
-        <div class="slide-item" 
-             style="--bg-desktop: url('6.webp'); 
-                    --bg-mobile: url('vz2.webp');">
-        </div>
-        <div class="slide-item" 
-             style="--bg-desktop: url('hz3.webp'); 
-                    --bg-mobile: url('vz3.webp');">
-        </div>
-        <div class="slide-item" 
-             style="--bg-desktop: url('4.webp'); 
-                    --bg-mobile: url('vz4.webp');">
-        </div>
-    </div>
-
-    <div class="overlay"></div>
-    <div id="toast" data-i18n="toast-copy">Link Copied</div>
-
-    <div class="main-container">
-        
-        <div id="home-view" class="view-section active">
-            <div class="brand-header">
-                <div class="logo-box">
-                    <img src="assets/img/382339732_968167470924802_1926347205479482034_n.jpg" alt="Logo" class="logo-img">
-                </div>
-                
-                <h1 class="agency-name">Aksara Picture</h1>
-                <p class="agency-tagline" data-i18n="tagline">Preserving Your Moments ✨</p>
-            </div>
-
-            <div class="menu-list" id="dynamic-menu">
-                <div style="color: rgba(255,255,255,0.5); font-family: var(--font-sans); font-size: 0.9rem; padding: 20px;">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading links...
-                </div>
-            </div>
-            
-        </div>
-
-        <div id="about-view" class="view-section">
-            <div class="glass-card">
-                <span class="section-label" data-i18n="about-label">The Studio</span>
-                <p class="text-body" data-i18n="about-text-1">
-                    <span class="text-highlight">Aksara Picture</span> is a graduation photography studio based in Malang, present to capture your graduation moments with elegant, natural, and story-filled results. We believe that graduation is not just a ceremony, but an important milestone in life worth remembering with the best visuals.
-                </p>
-                <p class="text-body" data-i18n="about-text-2">
-                    With experience handling hundreds of graduation photo sessions, Aksara Picture serves both indoor and outdoor shoots, whether personal, with family, friends, or partners. Our photography style adapts to the client's character, ranging from classic formal, soft aesthetic, to warm and memorable candids.
-                </p>
-
-                <p class="text-body">
-                    <span data-i18n="about-text-3">Not only in Malang, we are also ready to roll to Surabaya and Kediri, accompanying every graduate's step without hassle. Supported by professional photographers, quality equipment, and neat natural editing processes, we are committed to providing timeless photo results worthy of sharing on your special day.</span>
-                
-                <span class="section-label" style="margin-top: 30px;" data-i18n="service-label">Specialties</span>
-                <div class="service-grid">
-                    <div class="service-item"><div class="dot"></div>Graduation</div>
-                    <div class="service-item"><div class="dot"></div>Wedding</div>
-                    <div class="service-item"><div class="dot"></div>Gathering</div>
-                    <div class="service-item"><div class="dot"></div>Travel</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="contact-view" class="view-section">
-            <div class="glass-card">
-                <span class="section-label" data-i18n="contact-label">Inquiries</span>
-                <p class="text-body" style="margin-bottom: 20px;" data-i18n="contact-desc">
-                    Currently accepting commissions for the 2026 season. <br>Please detail your project scope below.
-                </p>
-
-                <form onsubmit="handleContact(event)">
-                    <input type="text" class="minimal-input" placeholder="Nama / Name" required>
-                    <input type="email" class="minimal-input" placeholder="Email" required>
-                    <input type="text" class="minimal-input" placeholder="Project Brief" required>
-                    <button type="submit" class="action-btn" data-i18n="btn-send">Request Schedule</button>
-                </form>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="copyright">© 2026 Aksarapicture.mlg</div>
-
-    <div class="dock-wrapper">
-        <div class="glass-dock">
-            <button class="dock-btn active" onclick="switchView('home-view')" id="nav-home">
-                <i class="fa-solid fa-house"></i>
-            </button>
-            <button class="dock-btn" onclick="switchView('about-view')" id="nav-about">
-                <i class="fa-solid fa-user"></i>
-            </button>
-            <button class="dock-btn" onclick="switchView('contact-view')" id="nav-contact">
-                <i class="fa-solid fa-envelope"></i>
-            </button>
-        </div>
-    </div>
-
-    <div id="audio-widget" class="audio-widget">
-        <div class="audio-card">
-            <div class="track-info">
-                <div class="track-art" style="background-image: url('assets/img/382339732_968167470924802_1926347205479482034_n.jpg');"></div>
-                <div class="track-details">
-                    <div class="track-name" id="track-name">Memories</div>
-                    <div class="track-artist" id="track-artist">Aksara Vibes</div>
-                </div>
-            </div>
-            
-            <div class="progress-container">
-                <div class="time-display" id="curr-time">0:00</div>
-                <input type="range" min="0" max="100" value="0" class="progress-bar" id="seek-slider">
-                <div class="time-display" id="total-duration">0:00</div>
-            </div>
-            
-            <div class="controls">
-                <button class="control-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
-                <button class="control-btn play-btn" onclick="playPauseTrack()" id="playpause-btn">
-                    <i class="fa-solid fa-play"></i>
-                </button>
-                <button class="control-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
-            </div>
-        </div>
-        
-        <div class="audio-trigger" onclick="toggleAudioPlayer()">
-            <div class="vinyl-spin"></div>
-            <i class="fa-solid fa-music trigger-icon"></i>
-        </div>
-    </div>
-
-    <script>
-        // --- TRANSLATION DATA ---
-        const translations = {
-            en: {
-                "tagline": "Preserving Your Moments ✨",
-                "btn-website": "Our Website",
-                "btn-price": "Info Pricelist",
-                "btn-share": "Share Profile",
-                "about-label": "The Studio",
-                "about-text-1": "<span class='text-highlight'>Aksara Picture</span> is a graduation photography studio based in Malang, present to capture your graduation moments with elegant, natural, and story-filled results. We believe that graduation is not just a ceremony, but an important milestone in life worth remembering with the best visuals.",
-                "about-text-2": "With experience handling hundreds of graduation photo sessions, Aksara Picture serves both indoor and outdoor shoots, whether personal, with family, friends, or partners. Our photography style adapts to the client's character, ranging from classic formal, soft aesthetic, to warm and memorable candids.",
-                "about-text-3": "Not only in Malang, we are also ready to roll to Surabaya and Kediri, accompanying every graduate's step without hassle. Supported by professional photographers, quality equipment, and neat natural editing processes, we are committed to providing timeless photo results worthy of sharing on your special day.",
-                "service-label": "Specialties",
-                "contact-label": "Inquiries",
-                "contact-desc": "Currently accepting commissions for the 2026 season. <br>Please detail your project scope below.",
-                "btn-send": "Request Schedule",
-                "popup-tag": "BOOKING 2026",
-                "popup-title": "New Season Open",
-                "popup-desc": "Exclusive slots for commercial campaigns are now available. Let's craft your visual identity.",
-                "toast-copy": "Link Copied",
-                "toast-sent": "Sent Successfully"
-            },
-            id: {
-                "tagline": "Mengabadikan Momenmu ✨",
-                "btn-website": "Website Kami",
-                "btn-price": "Info Harga",
-                "btn-share": "Bagikan Profil",
-                "about-label": "Tentang Studio",
-                "about-text-1": "<span class='text-highlight'>Aksara Picture</span> adalah studio foto wisuda yang berbasis di Malang, hadir untuk mengabadikan momen kelulusanmu dengan hasil foto yang elegan, natural, dan penuh cerita. Kami percaya bahwa wisuda bukan sekadar seremoni, tapi titik penting perjalanan hidup yang layak dikenang dengan visual terbaik.",
-                "about-text-2": "Dengan pengalaman menangani ratusan sesi foto wisuda, Aksara Picture melayani pemotretan indoor maupun outdoor, baik secara personal, bersama keluarga, sahabat, maupun pasangan. Gaya pemotretan kami menyesuaikan karakter klien. mulai dari formal klasik, soft aesthetic, hingga candid yang hangat dan berkesan.",
-                "about-text-3": "Tak hanya di Malang, kami juga siap rolling ke Surabaya dan Kediri, menemani setiap langkah wisudawan tanpa ribet. Didukung fotografer profesional, peralatan berkualitas, serta proses editing yang rapi dan natural, kami berkomitmen memberikan hasil foto yang timeless dan layak dibagikan di hari spesialmu.",
-                "service-label": "Spesialisasi",
-                "contact-label": "Pemesanan",
-                "contact-desc": "Saat ini membuka slot untuk musim 2026. <br>Silakan jelaskan detail rencana foto Anda di bawah ini.",
-                "btn-send": "Minta Jadwal",
-                "popup-tag": "BOOKING 2026",
-                "popup-title": "Musim Baru Dibuka",
-                "popup-desc": "Slot eksklusif untuk kampanye komersial dan wisuda kini tersedia. Mari ciptakan identitas visual Anda.",
-                "toast-copy": "Tautan Disalin",
-                "toast-sent": "Terkirim Berhasil"
-            }
-        };
-
-        let currentLang = 'en';
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            
-            // Update UI State
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`btn-${lang}`).classList.add('active');
-
-            // Animate transition (simple fade effect)
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                el.style.opacity = '0';
-                setTimeout(() => {
-                    const key = el.getAttribute('data-i18n');
-                    if (translations[lang][key]) {
-                        el.innerHTML = translations[lang][key];
-                    }
-                    el.style.opacity = '1';
-                }, 200);
-            });
-            
-            // Add fade transition style to elements dynamically just once
-            if(!document.getElementById('lang-style')) {
-                const style = document.createElement('style');
-                style.id = 'lang-style';
-                style.innerHTML = `[data-i18n] { transition: opacity 0.3s ease; }`;
-                document.head.appendChild(style);
-            }
-        }
-
-        // --- AUDIO PLAYER LOGIC ---
-        const audio = new Audio();
-        let isPlaying = false;
-        let trackIndex = 0;
-        
-        // Define your playlist here. You can add more songs.
-        // NOTE: Replace 'source' with your local file like 'assets/audio/song.mp3' or a URL.
-        const playlist = [
-            {
-                name: "Semua Aku Dirayakan",
-                artist: "Nadin Amizah",
-                source: "https://audio.jukehost.co.uk/utAKbe4LJhyZonhgRpQmHvbZu4TeeGLA", 
-                image: "assets/img/382339732_968167470924802_1926347205479482034_n.jpg"
-            },
-             {
-                name: "Graduation Song",
-                artist: "Murphy Radio",
-                source: "https://audio.jukehost.co.uk/ostn7puyPB4tm5bKnhqmPT8FLhCLaqa6", 
-                image: "assets/img/382339732_968167470924802_1926347205479482034_n.jpg"
-            }
-        ];
-
-        const playPauseBtn = document.getElementById("playpause-btn");
-        const seekSlider = document.getElementById("seek-slider");
-        const currTime = document.getElementById("curr-time");
-        const totalDuration = document.getElementById("total-duration");
-        const trackName = document.getElementById("track-name");
-        const trackArtist = document.getElementById("track-artist");
-        const widget = document.getElementById("audio-widget");
-
-        function loadTrack(index) {
-            audio.src = playlist[index].source;
-            trackName.textContent = playlist[index].name;
-            trackArtist.textContent = playlist[index].artist;
-            audio.load();
-            
-            // Wait for metadata to load duration
-            audio.addEventListener("loadedmetadata", () => {
-                 totalDuration.textContent = formatTime(audio.duration);
-                 seekSlider.max = audio.duration;
-            });
-        }
-
-        function toggleAudioPlayer() {
-            widget.classList.toggle("open");
-        }
-
-        function playPauseTrack() {
-            if (isPlaying) {
-                pauseTrack();
-            } else {
-                playTrack();
-            }
-        }
-
-        function playTrack() {
-            audio.play();
-            isPlaying = true;
-            widget.classList.add("playing");
-            playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-        }
-
-        function pauseTrack() {
-            audio.pause();
-            isPlaying = false;
-            widget.classList.remove("playing");
-            playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-        }
-
-        function nextTrack() {
-            trackIndex = (trackIndex + 1) % playlist.length;
-            loadTrack(trackIndex);
-            playTrack();
-        }
-
-        function prevTrack() {
-            trackIndex = (trackIndex - 1 + playlist.length) % playlist.length;
-            loadTrack(trackIndex);
-            playTrack();
-        }
-
-        function formatTime(seconds) {
-            let min = Math.floor(seconds / 60);
-            let sec = Math.floor(seconds % 60);
-            if (sec < 10) sec = `0${sec}`;
-            return `${min}:${sec}`;
-        }
-
-        // Event Listeners for Audio
-        audio.addEventListener("timeupdate", () => {
-            seekSlider.value = audio.currentTime;
-            currTime.textContent = formatTime(audio.currentTime);
-        });
-
-        audio.addEventListener("ended", nextTrack);
-
-        seekSlider.addEventListener("input", () => {
-            audio.currentTime = seekSlider.value;
-        });
-
-        // Initialize first track
-        loadTrack(trackIndex);
-
-
-        // --- EXISTING LOGIC ---
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-                // Show Popup after load
-                setTimeout(() => document.getElementById('promo-popup').classList.add('show'), 1000);
-            }, 1500);
-
-            // Trigger Whatsapp Notification after 5 seconds, then hide after 3 seconds
-            setTimeout(() => {
-                const waNotif = document.getElementById('wa-notification');
-                const notifSound = document.getElementById('notif-sound');
-                
-                waNotif.classList.add('show');
-                
-                // Play notification sound (with catch for autoplay policies)
-                notifSound.play().catch(e => console.log("Sound autoplay blocked:", e));
-                
-                // Hide automatically after 3 seconds
-                setTimeout(() => {
-                    waNotif.classList.remove('show');
-                }, 3000);
-            }, 5000);
-            
-            // Set default lang based on HTML lang attribute or browser
-            setLanguage('id'); // Defaulting to ID as requested by the original text content
-        });
-
-        function closePopup() { document.getElementById('promo-popup').classList.remove('show'); }
-
-        const slides = document.querySelectorAll('.slide-item');
-        let currentSlide = 0;
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 5000);
-
-        function switchView(viewId) {
-            const currentView = document.querySelector('.view-section.active');
-            const nextView = document.getElementById(viewId);
-            
-            if (currentView === nextView) return;
-
-            document.querySelectorAll('.dock-btn').forEach(el => el.classList.remove('active'));
-            if(viewId === 'home-view') document.getElementById('nav-home').classList.add('active');
-            if(viewId === 'about-view') document.getElementById('nav-about').classList.add('active');
-            if(viewId === 'contact-view') document.getElementById('nav-contact').classList.add('active');
-
-            if (currentView) {
-                currentView.classList.remove('active', 'entering');
-                currentView.classList.add('exiting');
-                setTimeout(() => {
-                    currentView.classList.remove('exiting');
-                }, 700);
-            }
-
-            if (nextView) {
-                nextView.classList.add('active', 'entering');
-                setTimeout(() => {
-                    nextView.classList.remove('entering');
-                }, 800);
-            }
-        }
-
-        function sharePage() { 
-            navigator.clipboard.writeText(window.location.href); 
-            showToast(translations[currentLang]["toast-copy"]); 
-        }
-        
-        function handleContact(e) { 
-            e.preventDefault(); 
-            showToast(translations[currentLang]["toast-sent"]); 
-            e.target.reset(); 
-        }
-        
-        function showToast(msg) {
-            const t = document.getElementById("toast"); 
-            t.textContent = msg; 
-            t.classList.add("show");
-            setTimeout(() => t.classList.remove("show"), 2500);
-        }
-        
-    </script>
-    
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-    // --- GANTI DENGAN PUNYA KAMU ---
-    const SUPABASE_URL = 'https://rgeshbeiweqnnkbhgoya.supabase.co'; 
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnZXNoYmVpd2Vxbm5rYmhnb3lhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2MzcxMTgsImV4cCI6MjA4MzIxMzExOH0.6N7jBP4C0KwHxYA8ymRT1UbN9kTyyQ2O3WV2Umvcdz4'; 
-
-    // Cek apakah SDK Supabase terload
-    if (typeof supabase === 'undefined') {
-        alert("Error: Script Supabase CDN belum terpasang!");
-    }
-
-    const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// --- 1. FETCH LINKTREE (UPDATED) ---
-    async function fetchAndRenderLinks() {
-        const container = document.getElementById('dynamic-menu');
-        
-        try {
-            console.log("Mulai mengambil data...");
-            
-            // --- PERUBAHAN ADA DI SINI ---
-            const { data: links, error } = await client
-                .from('links')
-                .select('*')
-                .order('sort_order', { ascending: true }); // Ganti 'created_at' jadi 'sort_order'
-
-            if (error) {
-                alert("Error Database: " + error.message);
-                container.innerHTML = '<p style="color:red">Error Database. Cek Console.</p>';
-                console.error(error);
-                return;
-            }
-
-            if (links.length === 0) {
-                container.innerHTML = '<p style="color:white">Database KOSONG (Belum ada link).</p>';
-                addShareButton(container);
-                return;
-            }
-
-            // Render Sukses
-            container.innerHTML = '';
-            links.forEach(link => {
-                const a = document.createElement('a');
-                a.href = link.url;
-                a.className = 'glass-btn';
-                a.target = '_blank';
-                
-                // Cek variabel currentLang global
-                const lang = (typeof currentLang !== 'undefined') ? currentLang : 'id';
-                const labelText = lang === 'id' ? link.label_id : link.label_en;
-
-                a.innerHTML = `
-                    <span class="btn-label">${labelText}</span>
-                    <i class="${link.icon} btn-icon-right"></i>
-                `;
-                container.appendChild(a);
-            });
-
-            addShareButton(container);
-
-        } catch (err) {
-            alert("Error Kodingan: " + err.message);
-        }
-    }
-
-    function addShareButton(container) {
-         // Render Tombol Share & Tagline
-         const shareText = (typeof translations !== 'undefined' && typeof currentLang !== 'undefined') 
-                          ? translations[currentLang]["btn-share"] 
-                          : "Share Profile";
-
-        const shareBtn = document.createElement('div');
-        shareBtn.className = 'glass-btn';
-        shareBtn.onclick = sharePage; 
-        shareBtn.innerHTML = `
-            <span class="btn-label" data-i18n="btn-share">${shareText}</span>
-            <i class="fa-solid fa-arrow-up-from-bracket btn-icon-right"></i>
-        `;
-        container.appendChild(shareBtn);
-
-        const tagline = document.createElement('p');
-        tagline.className = 'agency-tagline';
-        tagline.innerText = '#rollingwithaksara';
-        container.appendChild(tagline);
-    }
-
-    // --- 2. FETCH POPUP ---
-    async function fetchPopup() {
-        if(!client) return; // Gunakan variable client yang sudah dibuat
-
-        // Ambil 1 data popup terbaru
-        const { data, error } = await client
-            .from('popups')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(1);
-
-        if (error || !data || data.length === 0) {
-            console.log("No active popup found.");
-            return; 
-        }
-
-        const popup = data[0];
-        // Update HTML Elements
-        const visual = document.getElementById('popup-visual');
-        const tag = document.getElementById('popup-tag');
-        const title = document.getElementById('popup-title');
-        const desc = document.getElementById('popup-desc');
-
-        if(popup.tag) tag.textContent = popup.tag;
-        if(popup.title) title.textContent = popup.title;
-        if(popup.description) desc.textContent = popup.description;
-        
-        // Update BG Image
-        if(popup.image_url) {
-            visual.style.backgroundImage = `url('${popup.image_url}')`;
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        fetchAndRenderLinks();
-        fetchPopup(); // <--- Panggil Popup Disini
-    });
-    
-    // Sambungkan ke fungsi ganti bahasa yang lama
-    if (typeof setLanguage === 'function') {
-        const originalSetLanguage = setLanguage; 
-        setLanguage = function(lang) {
-            originalSetLanguage(lang); 
-            fetchAndRenderLinks(); 
-        };
-    }
-</script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

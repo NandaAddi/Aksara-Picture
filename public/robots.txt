@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bio.aksarapicture.web.id/sitemap.xml
