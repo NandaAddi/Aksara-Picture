@@ -22,7 +22,7 @@ export default function PromoPopup({ isLoaded, popup, t }) {
   return (
     <div id="promo-popup" className={showPromo ? 'show' : ''}>
       <div className="popup-glass">
-        <button className="close-icon" onClick={() => setShowPromo(false)}>
+        <button className="close-icon" onClick={() => setShowPromo(false)} aria-label={t("aria-close")}>
           <i className="fa-solid fa-xmark"></i>
         </button>
         <div className="popup-visual" style={{ backgroundImage: `url('${promoImg}')` }}>

@@ -36,10 +36,10 @@ export default function HomeView({ lang, links, loadingLinks, sharePage, t, clas
         {/* Share Profile button */}
         {!loadingLinks && (
           <>
-            <div className="glass-btn" onClick={sharePage}>
+            <button className="glass-btn" onClick={sharePage} style={{ fontFamily: 'inherit' }}>
               <span className="btn-label">{t("btn-share")}</span>
               <i className="fa-solid fa-arrow-up-from-bracket btn-icon-right"></i>
-            </div>
+            </button>
             <p className="agency-tagline">#rollingwithaksara</p>
           </>
         )}

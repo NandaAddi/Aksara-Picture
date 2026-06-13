@@ -26,7 +26,16 @@ export const translations = {
     "toast-copy": "Link Copied",
     "toast-sent": "Sent Successfully",
     "toast-booking-submitting": "Submitting booking...",
-    "toast-booking-success": "Saved! Opening WhatsApp..."
+    "toast-booking-success": "Saved! Opening WhatsApp...",
+    "aria-close": "Close promo",
+    "aria-home": "Home",
+    "aria-about": "About",
+    "aria-contact": "Contact",
+    "aria-prev-track": "Previous track",
+    "aria-next-track": "Next track",
+    "aria-play-track": "Play track",
+    "aria-pause-track": "Pause track",
+    "aria-toggle-audio": "Toggle audio player"
   },
   id: {
     "tagline": "Mengabadikan Momenmu",
@@ -55,6 +64,15 @@ export const translations = {
     "toast-copy": "Tautan Disalin",
     "toast-sent": "Terkirim Berhasil",
     "toast-booking-submitting": "Mengirim pesanan...",
-    "toast-booking-success": "Berhasil disimpan! Membuka WhatsApp..."
+    "toast-booking-success": "Berhasil disimpan! Membuka WhatsApp...",
+    "aria-close": "Tutup promo",
+    "aria-home": "Beranda",
+    "aria-about": "Tentang",
+    "aria-contact": "Kontak",
+    "aria-prev-track": "Lagu sebelumnya",
+    "aria-next-track": "Lagu berikutnya",
+    "aria-play-track": "Putar lagu",
+    "aria-pause-track": "Jeda lagu",
+    "aria-toggle-audio": "Buka/Tutup pemutar musik"
   }
 };

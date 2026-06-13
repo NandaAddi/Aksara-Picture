@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAudio } from '../../context/AudioContext';
 
-export default function AudioPlayer() {
+export default function AudioPlayer({ t }) {
   const {
     isPlaying,
     audioPlayerOpen,
@@ -46,13 +46,25 @@ export default function AudioPlayer() {
         </div>
         
         <div className="controls">
-          <button className="control-btn" onClick={prevTrack}>
+          <button 
+            className="control-btn" 
+            onClick={prevTrack}
+            aria-label={t ? t("aria-prev-track") : "Previous track"}
+          >
             <i className="fa-solid fa-backward-step"></i>
           </button>
-          <button className="control-btn play-btn" onClick={playPauseTrack}>
+          <button 
+            className="control-btn play-btn" 
+            onClick={playPauseTrack}
+            aria-label={t ? (isPlaying ? t("aria-pause-track") : t("aria-play-track")) : (isPlaying ? "Pause track" : "Play track")}
+          >
             {isPlaying ? <i className="fa-solid fa-pause"></i> : <i className="fa-solid fa-play"></i>}
           </button>
-          <button className="control-btn" onClick={nextTrack}>
+          <button 
+            className="control-btn" 
+            onClick={nextTrack}
+            aria-label={t ? t("aria-next-track") : "Next track"}
+          >
             <i className="fa-solid fa-forward-step"></i>
           </button>
         </div>

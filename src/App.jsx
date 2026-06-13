@@ -199,11 +199,11 @@ Mohon info jadwal dan ketersediaan slotnya ya. Terima kasih!`;
       <div className="copyright">© 2026 Aksarapicture.mlg</div>
 
       {/* 10. FLOATING DOCK */}
-      <FloatingDock activeView={activeView} handleViewSwitch={handleViewSwitch} />
+      <FloatingDock activeView={activeView} handleViewSwitch={handleViewSwitch} t={t} />
 
       {/* 11. AUDIO PLAYER & TRIGGER */}
-      <AudioPlayer />
-      <VinylTrigger />
+      <AudioPlayer t={t} />
+      <VinylTrigger t={t} />
     </AudioProvider>
   );
 }
