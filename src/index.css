@@ -501,8 +501,14 @@ body.loaded #preloader { opacity: 0; visibility: hidden; }
     visibility: hidden;
     pointer-events: none;
     transition: none;
-    padding-bottom: 100px;
+    padding-bottom: 20px;
     transform-origin: center center;
+    max-height: calc(100dvh - 160px);
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+.view-section::-webkit-scrollbar {
+    display: none;
 }
 
 .view-section.active {
@@ -592,10 +598,8 @@ body.loaded #preloader { opacity: 0; visibility: hidden; }
 .glass-card {
     background: rgba(10, 10, 10, 0.6); border: 1px solid var(--glass-border);
     backdrop-filter: blur(30px); padding: 40px 30px; border-radius: 24px;
-    text-align: left; max-height: 80vh; overflow-y: auto;
-    scrollbar-width: none;
+    text-align: left;
 }
-.glass-card::-webkit-scrollbar { display: none; }
 
 .section-label { 
     font-family: var(--font-sans);
